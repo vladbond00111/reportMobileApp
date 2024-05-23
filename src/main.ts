@@ -1,8 +1,6 @@
-import { createApp } from 'vue'
+import Vue, { createApp } from 'vue'
 import App from './App.vue'
 import router from './router';
-
-import { IonicVue } from '@ionic/vue';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
@@ -27,16 +25,65 @@ import '@ionic/vue/css/display.css';
  * https://ionicframework.com/docs/theming/dark-mode
  */
 
-/* @import '@ionic/vue/css/palettes/dark.always.css'; */
-/* @import '@ionic/vue/css/palettes/dark.class.css'; */
+// import '@ionic/vue/css/palettes/dark.always.css';
+// import '@ionic/vue/css/palettes/dark.class.css';
 import '@ionic/vue/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
 
+import {
+  IonicVue,
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonCard,
+  IonCardTitle,
+  IonCardSubtitle,
+  IonCardHeader,
+  IonCardContent,
+  IonButton,
+  IonIcon,
+  IonAvatar,
+  IonLabel,
+  IonItem,
+  IonList,
+  IonText,
+  IonTextarea,
+  IonInput
+
+} from '@ionic/vue';
 const app = createApp(App)
   .use(IonicVue)
   .use(router);
+
+const components = {
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonCard,
+  IonCardTitle,
+  IonCardSubtitle,
+  IonCardHeader,
+  IonCardContent,
+  IonButton,
+  IonIcon,
+  IonAvatar,
+  IonLabel,
+  IonItem,
+  IonList,
+  IonText,
+  IonTextarea,
+  IonInput
+};
+
+Object.entries(components).forEach(([name, component]) => {
+  app.component(name, component);
+});
 
 router.isReady().then(() => {
   app.mount('#app');
