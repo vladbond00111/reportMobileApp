@@ -2,96 +2,60 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Tab 3</ion-title>
+        <ion-title>Завантажити дані</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Tab 3</ion-title>
-        </ion-toolbar>
-      </ion-header>
-
-      <ion-content>
-        <ion-list>
-          <ion-item v-for="(item, index) in items">
-            <ion-card style="padding-bottom: 8px">
-              <ion-avatar slot="start">
-                <img :src="'https://picsum.photos/80/80?random=' + index" alt="avatar" />
-              </ion-avatar>
-              <ion-card-header>
-                <ion-card-title>{{ item }}</ion-card-title>
-                <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-              </ion-card-header>
-
-              <ion-card-content>
-                Here's a small text description for the card content. Nothing more, nothing less.
-              </ion-card-content>
-
-              <ion-button fill="clear">Action 1</ion-button>
-              <ion-button color="success">Action 2</ion-button>
-            </ion-card>
-          </ion-item>
-        </ion-list>
-        <ion-infinite-scroll @ionInfinite="ionInfinite">
-          <ion-infinite-scroll-content></ion-infinite-scroll-content>
-        </ion-infinite-scroll>
-      </ion-content>
+    <ion-content>
+      <ion-item style="margin-top: 50px">
+        <input type="file" @change="handleFileUpload" accept=".csv">
+      </ion-item>
     </ion-content>
   </ion-page>
 </template>
 
-<script lang="ts">
-import {
-  IonContent,
-  IonInfiniteScroll,
-  IonInfiniteScrollContent,
-  IonList,
-  IonItem,
-  IonAvatar,
-  IonImg,
-  IonLabel,
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  InfiniteScrollCustomEvent,
-} from '@ionic/vue';
-import { defineComponent, reactive } from 'vue';
+<script>
 
-export default defineComponent({
-  components: {
-    IonContent,
-    IonInfiniteScroll,
-    IonInfiniteScrollContent,
-    IonList,
-    IonItem,
-    IonAvatar,
-    IonImg,
-    IonLabel,
-    IonPage,
-    IonHeader,
-    IonToolbar,
-    IonTitle
-  },
-  setup() {
-    const items = reactive([]);
+import { postToSecondTable } from '@/compasables/useDatabase.js';
 
-    const generateItems = () => {
-      const count = items.length + 1;
-      for (let i = 0; i < 50; i++) {
-        items.push(`Item ${count + i}`);
+export default {
+  methods: {
+    handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        const text = e.target.result;
+        const data = this.parseCSV(text);
+        try {
+          await this.saveDataToIndexedDB(data);
+          alert('Дані успішно завантажено');
+        } catch (e) {
+          alert('Помилка завантаження даних');
+          console.log(e);
+        }
+      };
+      reader.readAsText(file);
+    },
+    parseCSV(text) {
+      const lines = text.split('\n');
+      const headers = lines[0].split(',');
+      const data = lines.slice(1).map(line => {
+        const values = line.split(',');
+        let obj = {};
+        headers.forEach((header, index) => {
+          obj[header.trim()] = values[index].trim();
+        });
+        return obj;
+      });
+      return data;
+    },
+    async saveDataToIndexedDB(data) {
+      for (let item of data) {
+        await postToSecondTable(item);
       }
-    };
 
-    const ionInfinite = (ev: InfiniteScrollCustomEvent) => {
-      generateItems();
-      setTimeout(() => ev.target.complete(), 500);
-    };
-
-    generateItems();
-
-    return { ionInfinite, items };
-  },
-});
+    }
+  }
+}
 </script>

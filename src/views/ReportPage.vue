@@ -1,11 +1,5 @@
 <template>
   <ion-page>
-    <ion-input
-        class="ion-margin-bottom"
-        label="Дата та час події"
-        label-placement="floating"
-        fill="outline"
-    />
     <ion-header>
       <ion-toolbar>
         <ion-title>Редагування</ion-title>
@@ -26,12 +20,7 @@ export default defineComponent({
   setup(context) {
     const report = ref(null);
     const fetchData = async (id) => {
-      const reports = await getAllFromReports();
-      console.log('id', id);
-      console.log('reports', reports);
-      console.log('reports', reports[0]);
       report.value = await getByIdFromReports(id);
-      console.log('report', report);
     };
 
     onMounted(() => {

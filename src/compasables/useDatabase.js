@@ -7,7 +7,7 @@ const db = new Dexie('MyDatabase');
 // Визначення схеми
 db.version(1).stores({
     reportsTable: '++id, name, nickname, unit, rank, phone, location, situation, witnesses, diagnosis, help, tq, state, additional, lost, timePass, evacuatedBy',
-    // secondTable: '++id, firstField, secondField',
+    secondTable: '++id, rank, name, nickname, phone, birthday, rank, unit, unit2, unit3, unit4, unit5'
 });
 
 // Reports Table
@@ -56,6 +56,30 @@ export const getAllFromReports = async () => {
         return allData;
     } catch (error) {
         console.error('Failed to retrieve data:', error);
+    }
+};
+
+
+// Функція для додавання даних до secondTable
+export const postToSecondTable = async (data) => {
+    try {
+        const rawData = toRaw(data);
+        const id = await db.secondTable.add(rawData);
+        console.log('Data added to secondTable with ID:', id);
+        return id;
+    } catch (error) {
+        console.error('Failed to add data to secondTable:', id, error);
+    }
+};
+
+// Функція для отримання всіх даних з secondTable
+export const getAllFromSecondTable = async () => {
+    try {
+        const allData = await db.secondTable.toArray();
+        console.log('All data from secondTable:', allData);
+        return allData;
+    } catch (error) {
+        console.error('Failed to retrieve data from secondTable:', error);
     }
 };
 
