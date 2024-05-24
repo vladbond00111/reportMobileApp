@@ -138,10 +138,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import { postToReportsTable } from '@/compasables/useDatabase.js';
+import { defineComponent, ref, watch } from 'vue';
+import { postToReports } from '@/compasables/useDatabase.js';
 export default defineComponent({
-  setup() {
+  props: {
+    report: {
+      type: Object,
+      default: () => ({})
+    },
+    type: {
+      type: String,
+      default: 'create'
+    }
+  },
+  setup(props) {
     const form = ref({
       date: '',
       name: '',
@@ -161,8 +171,14 @@ export default defineComponent({
       timePass: '',
       evacuatedBy: ''
     });
+    watch(() => props.report, (value: any) => {
+      if (value) {
+        form.value = value;
+      }
+    });
+
     const saveReport = async () => {
-      await postToReportsTable(form.value);
+      await postToReports(form.value);
     };
     return {
       saveReport,

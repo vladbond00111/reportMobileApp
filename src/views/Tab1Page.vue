@@ -13,12 +13,12 @@
 <!--      </ion-header>-->
 
 <!--      <ion-title size="large">test text</ion-title>-->
-<!--      <ion-button-->
-<!--          expand="block"-->
-<!--          @click="onGoToHelloPage"-->
-<!--      >-->
-<!--        Перехід на сторінку вітання-->
-<!--      </ion-button>-->
+      <ion-button
+          expand="block"
+          @click="onGoToHelloPage"
+      >
+        Перехід на сторінку вітання
+      </ion-button>
       <ion-content>
         <ion-list>
           <ion-item v-for="(report, index) in reportList">
@@ -35,8 +35,8 @@
                 {{ report.description }}
               </ion-card-content>
 
-              <ion-button fill="clear">Action 1</ion-button>
-              <ion-button color="success">Action 2</ion-button>
+<!--              <ion-button fill="clear" @click="toReportView(report.id)">Переглянути</ion-button>-->
+              <ion-button color="success" style="margin-left: 20px" @click="toReportView(report.id)">Редагувати</ion-button>
             </ion-card>
           </ion-item>
         </ion-list>
@@ -48,7 +48,7 @@
 <script lang="ts">
 import { useIonRouter } from '@ionic/vue';
 import { defineComponent, onMounted, ref } from 'vue';
-import { addTestData, getAllData, addSimpleTestData } from '@/compasables/useDatabase.js';
+import { addTestData, getAllFromReports, addSimpleTestData } from '@/compasables/useDatabase.js';
 
 export default defineComponent({
   components: {
@@ -62,9 +62,7 @@ export default defineComponent({
 
     const reportList = ref(null);
     onMounted(async () => {
-      reportList.value = await getAllData();
-      console.log(reportList.value)
-      console.log(reportList.value[0])
+      reportList.value = await getAllFromReports();
     });
 
     const handleAddData = () => {
@@ -89,8 +87,14 @@ export default defineComponent({
       //   console.log('Test data added with ID:', id);
       // });
     });
+
+    const toReportView = (id: string) => {
+      ionRouter.push(`/report/${id}`);
+    };
+
     return {
       onGoToHelloPage,
+      toReportView,
       reportList
     };
   },
