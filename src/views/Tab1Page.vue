@@ -2,23 +2,10 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Tab 1</ion-title>
+        <ion-title>Список репортів</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-<!--      <ion-header collapse="condense">-->
-<!--        <ion-toolbar>-->
-<!--          <ion-title size="large">Tab 1</ion-title>-->
-<!--        </ion-toolbar>-->
-<!--      </ion-header>-->
-
-<!--      <ion-title size="large">test text</ion-title>-->
-      <ion-button
-          expand="block"
-          @click="onGoToHelloPage"
-      >
-        Перехід на сторінку вітання
-      </ion-button>
       <ion-content>
         <ion-list>
           <ion-item v-for="(report, index) in reportList">
@@ -48,7 +35,7 @@
 <script lang="ts">
 import { useIonRouter } from '@ionic/vue';
 import { defineComponent, onMounted, ref } from 'vue';
-import { addTestData, getAllFromReports, addSimpleTestData } from '@/compasables/useDatabase.js';
+import { getAllFromReports } from '@/compasables/useDatabase.js';
 
 export default defineComponent({
   components: {
@@ -56,9 +43,6 @@ export default defineComponent({
   },
   setup() {
     const ionRouter = useIonRouter();
-    const onGoToHelloPage = () => {
-      ionRouter.push('/hello');
-    }
 
     const reportList = ref(null);
     onMounted(async () => {
@@ -67,7 +51,7 @@ export default defineComponent({
 
     const handleAddData = () => {
       const newItem = { someField: 'New', anotherField: 'Data' };
-      // addData('firstTable', newItem).then(() => loadData('firstTable'));
+      // addData('reportsTable', newItem).then(() => loadData('reportsTable'));
     };
 
     // const testData = [
@@ -89,11 +73,10 @@ export default defineComponent({
     });
 
     const toReportView = (id: string) => {
-      ionRouter.push(`/report/${id}`);
+      ionRouter.push(`/tabs/report/${id}`);
     };
 
     return {
-      onGoToHelloPage,
       toReportView,
       reportList
     };

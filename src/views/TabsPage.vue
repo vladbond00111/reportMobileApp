@@ -5,17 +5,17 @@
       <ion-tab-bar slot="bottom">
         <ion-tab-button tab="tab1" @click="onGoTo('/tabs/tab1')">
           <ion-icon aria-hidden="true" :icon="triangle" />
-          <ion-label>Tab 1</ion-label>
+          <ion-label>Репорти</ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="tab2" @click="onGoTo('/tabs/tab2')">
           <ion-icon aria-hidden="true" :icon="ellipse" />
-          <ion-label>Tab 2</ion-label>
+          <ion-label>Новий</ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="tab3" @click="onGoTo('/tabs/tab3')">
           <ion-icon aria-hidden="true" :icon="square" />
-          <ion-label>Tab 3</ion-label>
+          <ion-label>Завантажити дані</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>

@@ -130,6 +130,7 @@
     />
     <ion-button
         expand="block"
+        color="success"
         @click="saveReport"
     >
       Зберегти
@@ -139,7 +140,8 @@
 
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue';
-import { postToReports } from '@/compasables/useDatabase.js';
+import { IonInput } from '@ionic/vue';
+import { postToReports, updateByIdInReports } from '@/compasables/useDatabase.js';
 export default defineComponent({
   props: {
     report: {
@@ -150,6 +152,9 @@ export default defineComponent({
       type: String,
       default: 'create'
     }
+  },
+  components: {
+    IonInput
   },
   setup(props) {
     const form = ref({
@@ -175,10 +180,14 @@ export default defineComponent({
       if (value) {
         form.value = value;
       }
-    });
+    }, {deep: true, immediate: true});
 
     const saveReport = async () => {
-      await postToReports(form.value);
+      if (props.type === 'edit') {
+        await updateByIdInReports(form.value.id, form.value);
+      } else {
+        await postToReports(form.value);
+      }
     };
     return {
       saveReport,
