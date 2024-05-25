@@ -44,9 +44,14 @@ export default defineComponent({
   setup() {
     const ionRouter = useIonRouter();
 
-    const reportList = ref(null);
-    onMounted(async () => {
+    const reportList = ref<any>(null);
+    const getData = async () => {
       reportList.value = await getAllFromReports();
+    };
+    onMounted(async () => {
+      console.log('mounted');
+      getData();
+      console.log('mounted22');
     });
 
     const handleAddData = () => {

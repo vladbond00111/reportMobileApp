@@ -141,6 +141,7 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue';
 import { IonInput } from '@ionic/vue';
+import { useRouter } from 'vue-router';
 import { postToReports, updateByIdInReports } from '@/compasables/useDatabase.js';
 export default defineComponent({
   props: {
@@ -157,6 +158,7 @@ export default defineComponent({
     IonInput
   },
   setup(props) {
+    const router = useRouter();
     const form = ref({
       date: '',
       name: '',
@@ -183,10 +185,20 @@ export default defineComponent({
     }, {deep: true, immediate: true});
 
     const saveReport = async () => {
-      if (props.type === 'edit') {
-        await updateByIdInReports(form.value.id, form.value);
-      } else {
-        await postToReports(form.value);
+      try {
+        if (props.type === 'edit') {
+          await updateByIdInReports(form.value.id, form.value);
+          // alert('Репорт успішно збережено');
+          // router.push('/tabs/tab1');
+          window.location.href = '/tabs/tab1';
+        } else {
+          await postToReports(form.value);
+          // alert('Репорт успішно збережено');
+          window.location.href = '/tabs/tab1';
+        }
+      } catch (e) {
+        alert('Помилка збереження репорту');
+        console.log(e);
       }
     };
     return {
