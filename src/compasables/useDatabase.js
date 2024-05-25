@@ -2,12 +2,12 @@ import Dexie from 'dexie';
 import { toRaw } from 'vue';
 
 // Створення бази даних
-const db = new Dexie('MyDatabase');
+const db = new Dexie('MyDatabase2');
 
 // Визначення схеми
-db.version(1).stores({
+db.version(2).stores({
     reportsTable: '++id, name, nickname, unit, rank, phone, location, situation, witnesses, diagnosis, help, tq, state, additional, lost, timePass, evacuatedBy',
-    secondTable: '++id, rank, name, nickname, phone, birthday, rank, unit, unit2, unit3, unit4, unit5'
+    staffTable: '++id, rank, name, nickname, phone, birthday, unit, unit2, unit3, unit4, unit5'
 });
 
 // Reports Table
@@ -35,13 +35,7 @@ export const updateByIdInReports = async (id, data) => {
 }
 export const getByIdFromReports = async (id) => {
     try {
-        console.log('Getting data by ID:', id)
-        console.log('db.reportsTable:', db.reportsTable)
-        console.log('db.reportsTable.core:', db.reportsTable
-            .where("id")
-            .between(1, 3)
-            .toArray())
-        console.log('db.reportsTable.db.tables:', db.reportsTable.db.tables)
+        console.log('Getting data by ID:', id);
         const data = await db.reportsTable.get(id);
         console.log('Data retrieved by ID:', data);
         return data;
@@ -59,27 +53,26 @@ export const getAllFromReports = async () => {
     }
 };
 
-
-// Функція для додавання даних до secondTable
-export const postToSecondTable = async (data) => {
+// Функція для додавання даних до staffTable
+export const postToStaffTable = async (data) => {
     try {
         const rawData = toRaw(data);
-        const id = await db.secondTable.add(rawData);
-        console.log('Data added to secondTable with ID:', id);
+        const id = await db.staffTable.add(rawData);
+        console.log('Data added to staffTable with ID:', id);
         return id;
     } catch (error) {
-        console.error('Failed to add data to secondTable:', id, error);
+        console.error('Failed to add data to staffTable:', id, error);
     }
 };
 
-// Функція для отримання всіх даних з secondTable
-export const getAllFromSecondTable = async () => {
+// Функція для отримання всіх даних з staffTable
+export const getAllFromStaffTable = async () => {
     try {
-        const allData = await db.secondTable.toArray();
-        console.log('All data from secondTable:', allData);
+        const allData = await db.staffTable.toArray();
+        console.log('All data from staffTable:', allData);
         return allData;
     } catch (error) {
-        console.error('Failed to retrieve data from secondTable:', error);
+        console.error('Failed to retrieve data from staffTable:', error);
     }
 };
 

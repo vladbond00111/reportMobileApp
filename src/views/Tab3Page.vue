@@ -15,7 +15,7 @@
 
 <script>
 
-import { postToSecondTable } from '@/compasables/useDatabase.js';
+import { postToStaffTable } from '@/compasables/useDatabase.js';
 
 export default {
   methods: {
@@ -52,7 +52,7 @@ export default {
     },
     async saveDataToIndexedDB(data) {
       for (let item of data) {
-        await postToSecondTable(item);
+        await postToStaffTable(item);
       }
 
     }
