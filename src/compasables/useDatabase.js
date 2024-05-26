@@ -6,7 +6,7 @@ const db = new Dexie('MyDatabase2');
 
 // Визначення схеми
 db.version(2).stores({
-    reportsTable: '++id, name, nickname, unit, rank, phone, location, situation, witnesses, diagnosis, help, tq, state, additional, lost, timePass, evacuatedBy',
+    reportsTable: '++id, name, nickname, birthday, unit, rank, phone, location, situation, witnesses, diagnosis, help, tq, state, additional, lost, timePass, evacuatedBy',
     staffTable: '++id, rank, name, nickname, phone, birthday, unit, unit2, unit3, unit4, unit5'
     // staffTable: '++id, Звання, ПІБ, Позивний, телефон, дата народження, Посада, Відділення, Взвод, Рота, Батальйон, Бригада'
 });
@@ -78,10 +78,10 @@ export const getAllFromStaffTable = async () => {
 };
 
 // Функція для пошуку в staffTable
-export const searchInStaffTableByName = async (name) => {
+export const searchInStaffTableByName = async (value, field) => {
     try {
-        console.log('Searching data by name:', name);
-        const result = await db.staffTable.filter(staff => staff.name.toLowerCase().includes(name.toLowerCase())).toArray();
+        console.log('Searching data by name:', value);
+        const result = await db.staffTable.filter(staff => staff[field].toLowerCase().includes(value.toLowerCase())).toArray();
         console.log('Search result:', result);
         return result;
     } catch (error) {

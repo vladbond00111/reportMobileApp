@@ -13,12 +13,20 @@
         label="ПІБ"
         label-placement="floating"
         fill="outline"
-        @ionChange="onNameChange"
+        @ionChange="onNameChange($event, 'name')"
     />
     <ion-input
         v-model="form.nickname"
         class="ion-margin-bottom"
         label="Позивний"
+        label-placement="floating"
+        fill="outline"
+        @ionChange="onNameChange($event, 'nickname')"
+    />
+    <ion-input
+        v-model="form.birthdate"
+        class="ion-margin-bottom"
+        label="Дата народження"
         label-placement="floating"
         fill="outline"
     />
@@ -164,6 +172,7 @@ export default defineComponent({
       date: '',
       name: '',
       nickname: '',
+      birthday: '',
       unit: '',
       rank: '',
       phone: '',
@@ -186,12 +195,20 @@ export default defineComponent({
       }
     }, { deep: true, immediate: true });
 
-    const onNameChange = async (event) => {
-      const name = event.target.value;
-      if (name) {
-        const result = await searchInStaffTableByName(name);
+    const setStaffData = (data) => {
+      form.value.name = data.name;
+      form.value.nickname = data.nickname;
+      form.value.phone = data.phone;
+      form.value.unit = data.unit;
+      form.value.rank = data.rank;
+      form.value.birthday = data.birthday;
+    };
+    const onNameChange = async (event, field) => {
+      const value = event.target.value;
+      if (value) {
+        const result = await searchInStaffTableByName(value, field);
         if (result.length > 0) {
-          form.value.nickname = result[0].name;
+          setStaffData(result[0]);
         }
       }
     };
