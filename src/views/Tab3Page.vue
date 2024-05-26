@@ -40,11 +40,28 @@ export default {
     parseCSV(text) {
       const lines = text.split('\n');
       const headers = lines[0].split(',');
+
+      // Мапа для заміни назв полів
+      const fieldMap = {
+        'Звання': 'rank',
+        'ПІБ': 'name',
+        'Позивний': 'nickname',
+        'Телефон': 'phone',
+        'Дата народження': 'birthday',
+        'Посада': 'unit',
+        'Відділення': 'unit2',
+        'Взвод': 'unit3',
+        'Рота': 'unit4',
+        'Батальйон': 'unit5',
+        'Бригада': 'unit6'
+      };
+
       const data = lines.slice(1).map(line => {
         const values = line.split(',');
         let obj = {};
         headers.forEach((header, index) => {
-          obj[header.trim()] = values[index].trim();
+          const key = fieldMap[header.trim()] || header.trim(); // Заміна назви поля або використання оригінальної назви
+          obj[key] = values[index].trim();
         });
         return obj;
       });

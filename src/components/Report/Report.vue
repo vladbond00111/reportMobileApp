@@ -13,6 +13,7 @@
         label="ПІБ"
         label-placement="floating"
         fill="outline"
+        @ionChange="onNameChange"
     />
     <ion-input
         v-model="form.nickname"
@@ -142,7 +143,7 @@
 import { defineComponent, ref, watch } from 'vue';
 import { IonInput } from '@ionic/vue';
 import { useRouter } from 'vue-router';
-import { postToReports, updateByIdInReports } from '@/compasables/useDatabase.js';
+import { postToReports, updateByIdInReports, searchInStaffTableByName } from '@/compasables/useDatabase.js';
 export default defineComponent({
   props: {
     report: {
@@ -178,11 +179,22 @@ export default defineComponent({
       timePass: '',
       evacuatedBy: ''
     });
+
     watch(() => props.report, (value: any) => {
       if (value) {
         form.value = value;
       }
-    }, {deep: true, immediate: true});
+    }, { deep: true, immediate: true });
+
+    const onNameChange = async (event) => {
+      const name = event.target.value;
+      if (name) {
+        const result = await searchInStaffTableByName(name);
+        if (result.length > 0) {
+          form.value.nickname = result[0].name;
+        }
+      }
+    };
 
     const saveReport = async () => {
       try {
@@ -194,6 +206,7 @@ export default defineComponent({
         } else {
           await postToReports(form.value);
           // alert('Репорт успішно збережено');
+          // router.push('/tabs/tab1');
           window.location.href = '/tabs/tab1';
         }
       } catch (e) {
@@ -201,9 +214,11 @@ export default defineComponent({
         console.log(e);
       }
     };
+
     return {
       saveReport,
-      form
+      form,
+      onNameChange
     };
   },
 });
