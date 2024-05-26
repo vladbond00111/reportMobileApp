@@ -30,11 +30,12 @@
         label-placement="floating"
         fill="outline"
     />
-    <ion-input
+    <ion-textarea
         v-model="form.unit"
         class="ion-margin-bottom"
         label="Підрозділ"
         label-placement="floating"
+        :auto-grow="true"
         fill="outline"
     />
     <ion-input
@@ -199,8 +200,8 @@ export default defineComponent({
       form.value.name = data.name;
       form.value.nickname = data.nickname;
       form.value.phone = data.phone;
-      form.value.unit = data.unit;
-      form.value.rank = data.rank;
+      form.value.unit = data.unit2 + ', ' + data.unit3 + ', ' + data.unit4 + ', ' + data.unit5;
+      form.value.rank = data.rank + ', ' + data.workPosition;
       form.value.birthday = data.birthday;
     };
     const onNameChange = async (event, field) => {

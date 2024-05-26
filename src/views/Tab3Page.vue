@@ -48,12 +48,12 @@ export default {
         'Позивний': 'nickname',
         'Телефон': 'phone',
         'Дата народження': 'birthday',
-        'Посада': 'unit',
-        'Відділення': 'unit2',
-        'Взвод': 'unit3',
-        'Рота': 'unit4',
-        'Батальйон': 'unit5',
-        'Бригада': 'unit6'
+        'Посада': 'workPosition',
+        'Відділення': 'unit1',
+        'Взвод': 'unit2',
+        'Рота': 'unit3',
+        'Батальйон': 'unit4',
+        'Бригада': 'unit5'
       };
 
       const data = lines.slice(1).map(line => {
