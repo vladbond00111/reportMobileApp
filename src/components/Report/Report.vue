@@ -16,10 +16,10 @@
           fill="outline"
           @ionInput="onNameChange(form.name, 'name')"
       />
-      <div v-if="searchedStaff.length" class="autocomplete-tooltip">
+      <div v-if="searchedStaffByName.length" class="autocomplete-tooltip">
         <ion-list>
           <ion-item
-              v-for="staff in searchedStaff"
+              v-for="staff in searchedStaffByName"
               :key="staff.id"
               @click="selectStaff(staff)"
               button
@@ -29,14 +29,28 @@
         </ion-list>
       </div>
     </div>
-    <ion-input
-        v-model="form.nickname"
-        class="ion-margin-bottom"
-        label="Позивний"
-        label-placement="floating"
-        fill="outline"
-        @ionInput="onNameChange($event, 'nickname')"
-    />
+    <div class="input-wrapper">
+      <ion-input
+          v-model="form.nickname"
+          class="ion-margin-bottom"
+          label="Позивний"
+          label-placement="floating"
+          fill="outline"
+          @ionInput="onNameChange(form.nickname, 'nickname')"
+      />
+      <div v-if="searchedStaffByNickame.length" class="autocomplete-tooltip">
+        <ion-list>
+          <ion-item
+              v-for="staff in searchedStaffByNickame"
+              :key="staff.id"
+              @click="selectStaff(staff)"
+              button
+          >
+            {{ staff.nickname }}
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
     <ion-input
         v-model="form.birthdate"
         class="ion-margin-bottom"
@@ -166,7 +180,7 @@
 import { defineComponent, ref, watch } from 'vue';
 import { IonInput } from '@ionic/vue';
 import { useRouter } from 'vue-router';
-import { postToReports, updateByIdInReports, searchInStaffTableByName } from '@/compasables/useDatabase.js';
+import { postToReports, updateByIdInReports, searchInStaffTable } from '@/compasables/useDatabase.js';
 // import vueDebounce from 'vue-debounce';
 import { debounce } from 'vue-debounce';
 export default defineComponent({
@@ -219,7 +233,8 @@ export default defineComponent({
       }
     }, { deep: true, immediate: true });
 
-    const searchedStaff = ref([]);
+    const searchedStaffByName = ref([]);
+    const searchedStaffByNickame = ref([]);
     const setStaffData = (data) => {
       form.value.name = data.name;
       form.value.nickname = data.nickname;
@@ -232,17 +247,20 @@ export default defineComponent({
       console.log('onNameChange', value);
       if (value) {
         console.log('debounce');
-        searchedStaff.value = await searchInStaffTableByName(value, field);
-        // if (searchedStaff.value.length > 0) {
-        //   setStaffData(searchedStaff.value[0]);
-        // }
+        if (field === 'name') {
+          searchedStaffByName.value = await searchInStaffTable(value, field);
+        } else {
+          searchedStaffByNickame.value = await searchInStaffTable(value, field);
+        }
       } else {
-        searchedStaff.value = [];
+        searchedStaffByName.value = [];
+        searchedStaffByNickame.value = [];
       }
     }, '500ms');
     const selectStaff = (staff) => {
       setStaffData(staff);
-      searchedStaff.value = [];
+      searchedStaffByName.value = [];
+      searchedStaffByNickame.value = [];
     };
 
     const saveReport = async () => {
@@ -266,7 +284,8 @@ export default defineComponent({
 
     return {
       form,
-      searchedStaff,
+      searchedStaffByName,
+      searchedStaffByNickame,
       onNameChange,
       selectStaff,
       saveReport
@@ -292,7 +311,7 @@ export default defineComponent({
   margin-top: -10px; /* Adjust this value to fine-tune the position */
 }
 
-::v-deep {
+:deep {
   .label-text {
     color: #666;
   }
