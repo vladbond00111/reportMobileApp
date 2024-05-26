@@ -7,21 +7,35 @@
         label-placement="floating"
         fill="outline"
     />
-    <ion-input
-        v-model="form.name"
-        class="ion-margin-bottom"
-        label="ПІБ"
-        label-placement="floating"
-        fill="outline"
-        @ionChange="onNameChange($event, 'name')"
-    />
+    <div class="input-wrapper">
+      <ion-input
+          v-model="form.name"
+          class="ion-margin-bottom"
+          label="ПІБ"
+          label-placement="floating"
+          fill="outline"
+          @ionInput="onNameChange(form.name, 'name')"
+      />
+      <div v-if="searchedStaff.length" class="autocomplete-tooltip">
+        <ion-list>
+          <ion-item
+              v-for="staff in searchedStaff"
+              :key="staff.id"
+              @click="selectStaff(staff)"
+              button
+          >
+            {{ staff.name }}
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
     <ion-input
         v-model="form.nickname"
         class="ion-margin-bottom"
         label="Позивний"
         label-placement="floating"
         fill="outline"
-        @ionChange="onNameChange($event, 'nickname')"
+        @ionInput="onNameChange($event, 'nickname')"
     />
     <ion-input
         v-model="form.birthdate"
@@ -153,6 +167,8 @@ import { defineComponent, ref, watch } from 'vue';
 import { IonInput } from '@ionic/vue';
 import { useRouter } from 'vue-router';
 import { postToReports, updateByIdInReports, searchInStaffTableByName } from '@/compasables/useDatabase.js';
+// import vueDebounce from 'vue-debounce';
+import { debounce } from 'vue-debounce';
 export default defineComponent({
   props: {
     report: {
@@ -167,6 +183,13 @@ export default defineComponent({
   components: {
     IonInput
   },
+  // directives: {
+  //   debounce: vueDebounce({
+  //     lock: true,
+  //     listenTo: 'input', // подія, до якої застосовується debounce
+  //     defaultTime: '500ms'
+  //   })
+  // },
   setup(props) {
     const router = useRouter();
     const form = ref({
@@ -196,6 +219,7 @@ export default defineComponent({
       }
     }, { deep: true, immediate: true });
 
+    const searchedStaff = ref([]);
     const setStaffData = (data) => {
       form.value.name = data.name;
       form.value.nickname = data.nickname;
@@ -204,14 +228,21 @@ export default defineComponent({
       form.value.rank = data.rank + ', ' + data.workPosition;
       form.value.birthday = data.birthday;
     };
-    const onNameChange = async (event, field) => {
-      const value = event.target.value;
+    const onNameChange = debounce(async (value: string, field: string): Promise<void> => {
+      console.log('onNameChange', value);
       if (value) {
-        const result = await searchInStaffTableByName(value, field);
-        if (result.length > 0) {
-          setStaffData(result[0]);
-        }
+        console.log('debounce');
+        searchedStaff.value = await searchInStaffTableByName(value, field);
+        // if (searchedStaff.value.length > 0) {
+        //   setStaffData(searchedStaff.value[0]);
+        // }
+      } else {
+        searchedStaff.value = [];
       }
+    }, '500ms');
+    const selectStaff = (staff) => {
+      setStaffData(staff);
+      searchedStaff.value = [];
     };
 
     const saveReport = async () => {
@@ -234,13 +265,36 @@ export default defineComponent({
     };
 
     return {
-      saveReport,
       form,
-      onNameChange
+      searchedStaff,
+      onNameChange,
+      selectStaff,
+      saveReport
     };
   },
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.input-wrapper {
+  position: relative;
+}
+
+.autocomplete-tooltip {
+  position: absolute;
+  z-index: 1000;
+  background: white;
+  border: 1px solid #dcdcdc;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: -10px; /* Adjust this value to fine-tune the position */
+}
+
+::v-deep {
+  .label-text {
+    color: #666;
+  }
+}
 </style>

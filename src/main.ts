@@ -21,8 +21,11 @@ import {
   IonList,
   IonText,
   IonTextarea,
-  IonInput
+  IonInput,
+  IonSelect,
+  IonSelectOption
 } from '@ionic/vue';
+
 const components = {
   IonPage,
   IonHeader,
@@ -42,7 +45,9 @@ const components = {
   IonList,
   IonText,
   IonTextarea,
-  IonInput
+  IonInput,
+  IonSelect,
+  IonSelectOption
 };
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
