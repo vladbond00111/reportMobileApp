@@ -19,7 +19,7 @@ export default defineComponent({
   components: { Report },
   setup(context) {
     const report = ref<any>(null);
-    const fetchData = async (id) => {
+    const fetchData = async (id: number) => {
       report.value = await getByIdFromReports(id);
     };
 

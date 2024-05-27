@@ -13,7 +13,7 @@
   </ion-page>
 </template>
 
-<script lang="ts">
+<script lang="js">
 
 import { postToStaffTable } from '@/compasables/useDatabase.js';
 

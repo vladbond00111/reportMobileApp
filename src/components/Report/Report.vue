@@ -176,7 +176,7 @@
   </ion-content>
 </template>
 
-<script lang="ts">
+<script lang="js">
 import { defineComponent, ref, watch } from 'vue';
 import { IonInput } from '@ionic/vue';
 import { useRouter } from 'vue-router';
@@ -227,7 +227,7 @@ export default defineComponent({
       evacuatedBy: ''
     });
 
-    watch(() => props.report, (value: any) => {
+    watch(() => props.report, (value) => {
       if (value) {
         form.value = value;
       }
@@ -243,7 +243,7 @@ export default defineComponent({
       form.value.rank = data.rank + ', ' + data.workPosition;
       form.value.birthday = data.birthday;
     };
-    const onNameChange = debounce(async (value: string, field: string): Promise<void> => {
+    const onNameChange = debounce(async (value, field) => {
       console.log('onNameChange', value);
       if (value) {
         console.log('debounce');

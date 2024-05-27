@@ -22,7 +22,7 @@
   </ion-page>
 </template>
 
-<script setup lang="ts">
+<script setup lang="js">
 import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet, useIonRouter } from '@ionic/vue';
 import { ellipse, square, triangle } from 'ionicons/icons';
 const ionRouter = useIonRouter();
