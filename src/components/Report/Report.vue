@@ -9,31 +9,9 @@
     />
     <div class="input-wrapper">
       <ion-input
-          v-model="form.name"
-          class="ion-margin-bottom"
-          label="ПІБ"
-          label-placement="floating"
-          fill="outline"
-          @ionInput="onNameChange(form.name, 'name')"
-      />
-      <div v-if="searchedStaffByName.length" class="autocomplete-tooltip">
-        <ion-list>
-          <ion-item
-              v-for="staff in searchedStaffByName"
-              :key="staff.id"
-              @click="selectStaff(staff)"
-              button
-          >
-            {{ staff.name }}
-          </ion-item>
-        </ion-list>
-      </div>
-    </div>
-    <div class="input-wrapper">
-      <ion-input
           v-model="form.nickname"
           class="ion-margin-bottom"
-          label="Позивний"
+          label="Позивний (ПІБ)"
           label-placement="floating"
           fill="outline"
           @ionInput="onNameChange(form.nickname, 'nickname')"
@@ -46,11 +24,18 @@
               @click="selectStaff(staff)"
               button
           >
-            {{ staff.nickname }}
+            {{ staff.nickname }} ({{ staff.name }})
           </ion-item>
         </ion-list>
       </div>
     </div>
+    <ion-input
+        v-model="form.name"
+        class="ion-margin-bottom"
+        label="ПІБ"
+        label-placement="floating"
+        fill="outline"
+    />
     <ion-input
         v-model="form.birthdate"
         class="ion-margin-bottom"
@@ -197,13 +182,6 @@ export default defineComponent({
   components: {
     IonInput
   },
-  // directives: {
-  //   debounce: vueDebounce({
-  //     lock: true,
-  //     listenTo: 'input', // подія, до якої застосовується debounce
-  //     defaultTime: '500ms'
-  //   })
-  // },
   setup(props) {
     const router = useRouter();
     const form = ref({
@@ -233,7 +211,7 @@ export default defineComponent({
       }
     }, { deep: true, immediate: true });
 
-    const searchedStaffByName = ref([]);
+    // const searchedStaffByName = ref([]);
     const searchedStaffByNickame = ref([]);
     const setStaffData = (data) => {
       form.value.name = data.name;
@@ -243,22 +221,19 @@ export default defineComponent({
       form.value.rank = data.rank + ', ' + data.workPosition;
       form.value.birthday = data.birthday;
     };
-    const onNameChange = debounce(async (value, field) => {
+    const onNameChange = debounce(async (value) => {
       if (value?.length > 2) {
         console.log('debounce');
-        if (field === 'name') {
-          searchedStaffByName.value = await searchInStaffTable(value, field);
-        } else {
-          searchedStaffByNickame.value = await searchInStaffTable(value, field);
-        }
+        searchedStaffByNickame.value = await searchInStaffTable(value);
+
       } else {
-        searchedStaffByName.value = [];
+        // searchedStaffByName.value = [];
         searchedStaffByNickame.value = [];
       }
     }, '500ms');
     const selectStaff = (staff) => {
       setStaffData(staff);
-      searchedStaffByName.value = [];
+      // searchedStaffByName.value = [];
       searchedStaffByNickame.value = [];
     };
 
@@ -283,7 +258,7 @@ export default defineComponent({
 
     return {
       form,
-      searchedStaffByName,
+      // searchedStaffByName,
       searchedStaffByNickame,
       onNameChange,
       selectStaff,

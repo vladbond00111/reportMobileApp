@@ -78,11 +78,14 @@ export const getAllFromStaffTable = async () => {
 };
 
 // Функція для пошуку в staffTable
-export const searchInStaffTable = async (value, field) => {
+export const searchInStaffTable = async (value) => {
     try {
         console.log('Searching data by name:', value);
         if (value === '') return [];
-        const result = await db.staffTable.filter(staff => staff[field].toLowerCase().startsWith(value.toLowerCase())).toArray();
+        const result = await db.staffTable.filter(staff =>
+            staff['name'].toLowerCase().startsWith(value.toLowerCase()) ||
+            staff['nickname'].toLowerCase().startsWith(value.toLowerCase())
+        ).toArray();
         console.log('Search result:', result);
         return result;
     } catch (error) {
