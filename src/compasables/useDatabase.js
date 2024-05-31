@@ -82,7 +82,7 @@ export const searchInStaffTable = async (value, field) => {
     try {
         console.log('Searching data by name:', value);
         if (value === '') return [];
-        const result = await db.staffTable.filter(staff => staff[field].toLowerCase().includes(value.toLowerCase())).toArray();
+        const result = await db.staffTable.filter(staff => staff[field].toLowerCase().startsWith(value.toLowerCase())).toArray();
         console.log('Search result:', result);
         return result;
     } catch (error) {
