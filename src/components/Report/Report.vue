@@ -244,8 +244,7 @@ export default defineComponent({
       form.value.birthday = data.birthday;
     };
     const onNameChange = debounce(async (value, field) => {
-      console.log('onNameChange', value);
-      if (value) {
+      if (value?.length > 2) {
         console.log('debounce');
         if (field === 'name') {
           searchedStaffByName.value = await searchInStaffTable(value, field);
