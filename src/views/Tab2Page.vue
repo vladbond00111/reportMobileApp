@@ -1,21 +1,16 @@
 <template>
-  <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Новий звіт</ion-title>
-      </ion-toolbar>
-    </ion-header>
+  <ion-page style="margin-top: 56px">
     <report/>
   </ion-page>
 </template>
 
 <script lang="ts">
 import Report from '@/components/Report/Report.vue';
-import { defineComponent, ref } from 'vue';
+import {defineComponent, inject, ref, onMounted} from 'vue';
 export default defineComponent({
   components: { Report },
   setup() {
-
+    console.log('setup');
     return {
     };
   },

@@ -1,10 +1,5 @@
 <template>
-  <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Завантажити дані</ion-title>
-      </ion-toolbar>
-    </ion-header>
+  <ion-page style="margin-top: 56px">
     <ion-content>
       <ion-item style="margin-top: 50px">
         <input type="file" @change="handleFileUpload" accept=".csv">

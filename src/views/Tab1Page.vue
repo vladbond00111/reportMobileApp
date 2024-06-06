@@ -1,10 +1,5 @@
 <template>
-  <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Список репортів</ion-title>
-      </ion-toolbar>
-    </ion-header>
+  <ion-page style="margin-top: 56px">
     <ion-content :fullscreen="true">
       <ion-content>
         <ion-list>
@@ -49,9 +44,7 @@ export default defineComponent({
       reportList.value = await getAllFromReports();
     };
     onMounted(async () => {
-      console.log('mounted');
       getData();
-      console.log('mounted22');
     });
 
     const handleAddData = () => {
