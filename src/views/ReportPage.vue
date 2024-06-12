@@ -91,12 +91,12 @@
     <div class="buttons-block">
       <ion-button
           color="success"
-          style="margin-left: 20px"
           @click="toReportEdit(report.id)"
       >
         Редагувати
       </ion-button>
       <ion-button
+          disabled
           color="tertiary"
           style="margin-left: 20px"
       >
@@ -139,7 +139,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .buttons-block {
   display: flex;
   justify-content: center;

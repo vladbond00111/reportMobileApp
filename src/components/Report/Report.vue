@@ -151,6 +151,8 @@
         :auto-grow="true"
         fill="outline"
     />
+  </ion-content>
+  <div class="buttons-block">
     <ion-button
         expand="block"
         color="success"
@@ -158,7 +160,7 @@
     >
       Зберегти
     </ion-button>
-  </ion-content>
+  </div>
 </template>
 
 <script lang="js">
@@ -243,7 +245,7 @@ export default defineComponent({
           await updateByIdInReports(form.value.id, form.value);
           // alert('Репорт успішно збережено');
           // router.push('/tabs/tab1');
-          window.location.href = '/tabs/tab1';
+          window.location.href = '/tabs/report/' + form.value.id;
         } else {
           await postToReports(form.value);
           // alert('Репорт успішно збережено');
@@ -269,10 +271,17 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+.buttons-block {
+  display: flex;
+  justify-content: end;
+  padding-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  border-top: #dddddd 1px solid;
+}
 .input-wrapper {
   position: relative;
 }
-
 .autocomplete-tooltip {
   position: absolute;
   z-index: 1000;
@@ -284,7 +293,6 @@ export default defineComponent({
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: -10px; /* Adjust this value to fine-tune the position */
 }
-
 :deep {
   .label-text {
     color: #666;
