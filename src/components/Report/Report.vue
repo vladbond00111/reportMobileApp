@@ -1,33 +1,32 @@
 <template>
   <ion-content class="ion-padding">
-    <ion-input
-        v-model="form.date"
-        class="ion-margin-bottom"
-        label="Дата та час події"
-        label-placement="floating"
-        fill="outline"
-    />
-    <div class="input-wrapper">
-      <ion-input
-          v-model="form.nickname"
-          class="ion-margin-bottom"
-          label="Позивний (ПІБ)"
-          label-placement="floating"
-          fill="outline"
-          @ionInput="onNameChange(form.nickname, 'nickname')"
-      />
-      <div v-if="searchedStaffByNickame.length" class="autocomplete-tooltip">
-        <ion-list>
-          <ion-item
-              v-for="staff in searchedStaffByNickame"
-              :key="staff.id"
-              @click="selectStaff(staff)"
-              button
-          >
-            {{ staff.nickname }} ({{ staff.name }})
-          </ion-item>
-        </ion-list>
+    <div style="display: flex">
+      <div class="input-wrapper">
+        <ion-input
+            v-model="form.nickname"
+            class="ion-margin-bottom"
+            label="Позивний (ПІБ)"
+            label-placement="floating"
+            fill="outline"
+            @ionInput="onNameChange(form.nickname, 'nickname')"
+        />
+        <div v-if="searchedStaffByNickame.length" class="autocomplete-tooltip">
+          <ion-list>
+            <ion-item
+                v-for="staff in searchedStaffByNickame"
+                :key="staff.id"
+                @click="selectStaff(staff)"
+                button
+            >
+              {{ staff.nickname }} ({{ staff.name }})
+            </ion-item>
+          </ion-list>
+        </div>
       </div>
+      <new-staff-modal
+        v-if="!searchedStaffByNickame.length && form.nickname?.length > 3"
+        @new-staff="setStaffData"
+      />
     </div>
     <ion-input
         v-model="form.name"
@@ -63,6 +62,13 @@
         class="ion-margin-bottom"
         type="number"
         label="Телефон"
+        label-placement="floating"
+        fill="outline"
+    />
+    <ion-input
+        v-model="form.date"
+        class="ion-margin-bottom"
+        label="Дата та час події"
         label-placement="floating"
         fill="outline"
     />
@@ -170,6 +176,7 @@ import { useRouter } from 'vue-router';
 import { postToReports, updateByIdInReports, searchInStaffTable } from '@/compasables/useDatabase.js';
 // import vueDebounce from 'vue-debounce';
 import { debounce } from 'vue-debounce';
+import NewStaffModal from "@/components/newStaff/newStaffModal.vue";
 export default defineComponent({
   props: {
     report: {
@@ -182,6 +189,7 @@ export default defineComponent({
     }
   },
   components: {
+    NewStaffModal,
     IonInput
   },
   setup(props) {
@@ -219,10 +227,11 @@ export default defineComponent({
       form.value.name = data.name;
       form.value.nickname = data.nickname;
       form.value.phone = data.phone;
-      form.value.unit = data.unit2 + ', ' + data.unit3 + ', ' + data.unit4 + ', ' + data.unit5;
+      form.value.unit = data.unit + ', ' + data.unit2 + ', ' + data.unit3 + ', ' + data.unit4 + ', ' + data.unit5;
       form.value.rank = data.rank + ', ' + data.workPosition;
       form.value.birthday = data.birthday;
     };
+    // const isDebounce = ref(false);
     const onNameChange = debounce(async (value) => {
       if (value?.length > 2) {
         console.log('debounce');
@@ -264,6 +273,7 @@ export default defineComponent({
       searchedStaffByNickame,
       onNameChange,
       selectStaff,
+      setStaffData,
       saveReport
     };
   },
@@ -281,6 +291,7 @@ export default defineComponent({
 }
 .input-wrapper {
   position: relative;
+  flex-grow: 1;
 }
 .autocomplete-tooltip {
   position: absolute;
