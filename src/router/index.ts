@@ -32,6 +32,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'report/:id',
         component: () => import('@/views/ReportPage.vue'),
+      },
+      {
+        path: 'report/:id/edit',
+        component: () => import('@/views/ReportEdit.vue'),
       }
     ]
   },

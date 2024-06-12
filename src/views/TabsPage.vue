@@ -55,6 +55,8 @@ export default defineComponent({
         title.value = 'Новий звіт';
       } else if (newPath.includes('/tabs/tab3')) {
         title.value = 'Завантажити дані';
+      } else if (newPath.includes('/tabs/report')) {
+        title.value = 'Деталі звіту';
       }
     });
     return {
