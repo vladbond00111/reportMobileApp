@@ -58,11 +58,21 @@ export const getAllFromReports = async () => {
 export const postToStaffTable = async (data) => {
     try {
         const rawData = toRaw(data);
+        // Перевірка наявності запису з таким name
+        const existingEntry = await db.staffTable
+            .where('name')
+            .equals(rawData.name)
+            .first();
+
+        if (existingEntry) {
+            console.log('Record already exists with ID:', existingEntry.id);
+            return existingEntry.id;
+        }
         const id = await db.staffTable.add(rawData);
-        console.log('Data added to staffTable with ID:', id);
+        console.log('Data added to staffTable with ID:', id, rawData.nickname);
         return id;
     } catch (error) {
-        console.error('Failed to add data to staffTable:', id, error);
+        console.error('Failed to add data to staffTable:', error);
     }
 };
 
