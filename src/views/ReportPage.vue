@@ -89,21 +89,44 @@
       </ion-list>
     </ion-content>
     <div class="buttons-block">
-      <ion-button
-          color="success"
-          @click="toReportEdit(report.id)"
-      >
-        Редагувати
-      </ion-button>
-      <ion-button
-          disabled
-          color="tertiary"
-          style="margin-left: 20px"
-      >
-        Передати по nfc
-      </ion-button>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button
+                style="width: 100%"
+                color="success"
+                @click="toReportEdit(report.id)"
+            >
+              Редагувати
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button
+                color="tertiary"
+                style="width: 100%"
+                @click="copy(report)"
+            >
+              Копіювати
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+<!--      <ion-button-->
+<!--          color="tertiary"-->
+<!--          style="margin-left: 20px"-->
+<!--      >-->
+<!--        Передати по nfc-->
+<!--      </ion-button>-->
     </div>
   </ion-page>
+  <ion-toast
+      :is-open="isOpenAlert"
+      position="top"
+      position-anchor="header"
+      message="Дані скопійовано"
+      :duration="2000"
+      @didDismiss="setOpenAlert(false)"
+  ></ion-toast>
 </template>
 
 <script lang="ts">
@@ -111,10 +134,10 @@ import Report from '@/components/Report/Report.vue';
 import {defineComponent, onMounted, ref} from 'vue';
 import { useRoute } from 'vue-router';
 import {getByIdFromReports} from '@/compasables/useDatabase.js';
-import {useIonRouter} from "@ionic/vue";
+import {useIonRouter, IonToast} from "@ionic/vue";
 
 export default defineComponent({
-  components: { Report },
+  components: { Report, IonToast },
   setup(context) {
     const report = ref<any>(null);
     const fetchData = async (id: number) => {
@@ -131,9 +154,49 @@ export default defineComponent({
     const toReportEdit = (id) => {
       ionRouter.push(`/tabs/report/${id}/edit`);
     };
+
+    const isOpenAlert = ref(false);
+    const setOpenAlert = (state: boolean) => {
+      isOpenAlert.value = state;
+    };
+
+    const copy = async (reportData) => {
+      const formattedText = `
+1. Дата та час події - ${reportData.date}
+2. Позивний (ПІБ) - ${reportData.nickname}
+3. ПІБ - ${reportData.name}
+4. Підрозділ - ${reportData.unit}
+5. Звання, посада - ${reportData.rank}
+6. Телефон - ${reportData.phone}
+7. Місце події - ${reportData.location}
+8. Обставини - ${reportData.situation}
+9. Свідки - ${reportData.witnesses}
+10. Попередній діагноз - ${reportData.diagnosis}
+11. Надана допомога - ${reportData.help}
+12. TQ - ${reportData.tq}
+13. Стан в динаміці - ${reportData.state}
+14. В засобах індивідуального захисту - ${reportData.additional}
+15. Втрачене майно - ${reportData.lost}
+16. Час передачі на - ${reportData.timePass}
+17. Ким евакуйований - ${reportData.evacuatedBy}
+      `.trim();
+
+      try {
+        await navigator.clipboard.writeText(formattedText);
+        // alert('Дані скопійовано!');
+        setOpenAlert(true);
+      } catch (err) {
+        console.error('Не вдалося скопіювати дані', err);
+        alert('Помилка при копіюванні даних');
+      }
+    };
+
     return {
       report,
-      toReportEdit
+      isOpenAlert,
+      copy,
+      toReportEdit,
+      setOpenAlert
     };
   },
 });
@@ -143,7 +206,7 @@ export default defineComponent({
 .buttons-block {
   display: flex;
   justify-content: center;
-  padding-top: 10px;
+  padding: 10px 20px 0 20px;
   margin-bottom: 10px;
   border-top: #dddddd 1px solid;
 }

@@ -1,10 +1,12 @@
 <template>
   <ion-page>
-    <ion-header>
+    <ion-header id="header">
       <ion-toolbar>
         <ion-title>Форма100 - {{ title }}</ion-title>
         <img
-            src="../assets/logo1.png"
+            src="../assets/medicred.png"
+            width="56"
+            height="56"
             alt="logo"
             class="logo"
             @click="onGoTo('/tabs/tab3')"
