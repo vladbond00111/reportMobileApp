@@ -18,7 +18,10 @@
                 @click="selectStaff(staff)"
                 button
             >
-              {{ staff.nickname }} ({{ staff.name }})
+              <ion-label class="ion-text-wrap">
+                <div style="font-weight: bold;">{{ staff.nickname }}</div>
+                <div>{{ staff.name }}</div>
+              </ion-label>
             </ion-item>
           </ion-list>
         </div>

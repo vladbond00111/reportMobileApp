@@ -23,7 +23,10 @@ import {
   IonTextarea,
   IonInput,
   IonSelect,
-  IonSelectOption
+  IonSelectOption,
+  IonGrid,
+  IonCol,
+  IonRow
 } from '@ionic/vue';
 
 const components = {
@@ -47,7 +50,10 @@ const components = {
   IonTextarea,
   IonInput,
   IonSelect,
-  IonSelectOption
+  IonSelectOption,
+  IonGrid,
+  IonCol,
+  IonRow
 };
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';

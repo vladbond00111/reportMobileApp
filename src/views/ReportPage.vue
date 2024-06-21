@@ -111,22 +111,16 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-<!--      <ion-button-->
-<!--          color="tertiary"-->
-<!--          style="margin-left: 20px"-->
-<!--      >-->
-<!--        Передати по nfc-->
-<!--      </ion-button>-->
     </div>
+    <ion-toast
+        :is-open="isOpenAlert"
+        position="top"
+        position-anchor="header"
+        message="Дані скопійовано"
+        :duration="2000"
+        @didDismiss="setOpenAlert(false)"
+    ></ion-toast>
   </ion-page>
-  <ion-toast
-      :is-open="isOpenAlert"
-      position="top"
-      position-anchor="header"
-      message="Дані скопійовано"
-      :duration="2000"
-      @didDismiss="setOpenAlert(false)"
-  ></ion-toast>
 </template>
 
 <script lang="ts">
@@ -206,8 +200,7 @@ export default defineComponent({
 .buttons-block {
   display: flex;
   justify-content: center;
-  padding: 10px 20px 0 20px;
-  margin-bottom: 10px;
+  padding: 0 10px 0 10px;
   border-top: #dddddd 1px solid;
 }
 .item-text {
