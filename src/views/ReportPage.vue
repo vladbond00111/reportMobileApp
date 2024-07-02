@@ -93,8 +93,9 @@
         <ion-row>
           <ion-col>
             <ion-button
+                color="light"
+                shape="round"
                 style="width: 100%"
-                color="success"
                 @click="toReportEdit(report.id)"
             >
               Редагувати
@@ -102,7 +103,8 @@
           </ion-col>
           <ion-col>
             <ion-button
-                color="tertiary"
+                color="primary"
+                shape="round"
                 style="width: 100%"
                 @click="copy(report)"
             >

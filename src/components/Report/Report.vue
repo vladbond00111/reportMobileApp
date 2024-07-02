@@ -164,7 +164,9 @@
   <div class="buttons-block">
     <ion-button
         expand="block"
-        color="success"
+        color="primary"
+        shape="round"
+        style="width: 100%"
         @click="saveReport"
     >
       Зберегти
@@ -287,7 +289,7 @@ export default defineComponent({
 .buttons-block {
   display: flex;
   justify-content: end;
-  padding-top: 10px;
+  padding: 10px 10px 0 10px;
   margin-bottom: 10px;
   margin-right: 10px;
   border-top: #dddddd 1px solid;

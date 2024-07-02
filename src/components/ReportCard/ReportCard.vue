@@ -14,7 +14,7 @@
       </ion-card-content>
 
       <!--              <ion-button fill="clear" @click="toReportView(report.id)">Переглянути</ion-button>-->
-<!--      <ion-button color="success" style="margin-left: 20px">Редагувати</ion-button>-->
+<!--      <ion-button color="primary" style="margin-left: 20px">Редагувати</ion-button>-->
     </ion-card>
   </ion-item>
 </template>
@@ -46,5 +46,6 @@ export default defineComponent({
   padding-bottom: 8px;
   width: 100%;
   cursor: pointer;
+  border-left: 3px solid var(--accent-color);
 }
 </style>

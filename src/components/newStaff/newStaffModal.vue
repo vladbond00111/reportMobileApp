@@ -3,7 +3,7 @@
       id="open-modal"
       style="margin: 0 0 16px 10px"
       expand="block"
-      color="success"
+      color="primary"
   >
     Створити
   </ion-button>
@@ -11,11 +11,11 @@
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-button @click="cancel()">Cancel</ion-button>
+          <ion-button color="primary" @click="cancel()">Cancel</ion-button>
         </ion-buttons>
         <ion-title>Картка бійця</ion-title>
         <ion-buttons slot="end">
-          <ion-button :strong="true" @click="confirm()">Confirm</ion-button>
+          <ion-button color="primary" :strong="true" @click="confirm()">Confirm</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
