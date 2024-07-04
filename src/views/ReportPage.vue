@@ -1,89 +1,89 @@
 <template>
   <ion-page style="margin-top: 56px">
-    <ion-content v-if="report" class="ion-padding">
+    <ion-content v-if="report" class="ion-padding-end">
       <ion-list>
         <ion-item>
-          <ion-label position="stacked">1. Дата та час події</ion-label>
+          <ion-label position="stacked" class="item-label">1. Дата та час події</ion-label>
           <ion-text class="item-text">{{ report.date }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">2. Позивний (ПІБ)</ion-label>
+          <ion-label position="stacked" class="item-label">2. Позивний (ПІБ)</ion-label>
           <ion-text class="item-text">{{ report.nickname }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">3. ПІБ</ion-label>
+          <ion-label position="stacked" class="item-label">3. ПІБ</ion-label>
           <ion-text class="item-text">{{ report.name }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">4. Підрозділ</ion-label>
+          <ion-label position="stacked" class="item-label">4. Підрозділ</ion-label>
           <ion-text class="item-text">{{ report.unit }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">5. Звання, посада</ion-label>
+          <ion-label position="stacked" class="item-label">5. Звання, посада</ion-label>
           <ion-text class="item-text">{{ report.rank }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">6. Телефон</ion-label>
+          <ion-label position="stacked" class="item-label">6. Телефон</ion-label>
           <ion-text class="item-text">{{ report.phone }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">7. Місце події</ion-label>
+          <ion-label position="stacked" class="item-label">7. Місце події</ion-label>
           <ion-text class="item-text">{{ report.location }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">8. Обставини</ion-label>
+          <ion-label position="stacked" class="item-label">8. Обставини</ion-label>
           <ion-text class="item-text">{{ report.situation }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">9. Свідки</ion-label>
+          <ion-label position="stacked" class="item-label">9. Свідки</ion-label>
           <ion-text class="item-text">{{ report.witnesses }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">10. Попередній діагноз</ion-label>
+          <ion-label position="stacked" class="item-label">10. Попередній діагноз</ion-label>
           <ion-text class="item-text">{{ report.diagnosis }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">11. Надана допомога</ion-label>
+          <ion-label position="stacked" class="item-label">11. Надана допомога</ion-label>
           <ion-text class="item-text">{{ report.help }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">12. TQ</ion-label>
+          <ion-label position="stacked" class="item-label">12. TQ</ion-label>
           <ion-text class="item-text">{{ report.tq }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">13. Стан в динаміці</ion-label>
+          <ion-label position="stacked" class="item-label">13. Стан в динаміці</ion-label>
           <ion-text class="item-text">{{ report.state }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">14. В засобах індивідуального захисту</ion-label>
+          <ion-label position="stacked" class="item-label">14. В засобах індивідуального захисту</ion-label>
           <ion-text class="item-text">{{ report.additional }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">15. Втрачене майно</ion-label>
+          <ion-label position="stacked" class="item-label">15. Втрачене майно</ion-label>
           <ion-text class="item-text">{{ report.lost }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">16. Час передачі на</ion-label>
+          <ion-label position="stacked" class="item-label">16. Час передачі на</ion-label>
           <ion-text class="item-text">{{ report.timePass }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">17. Ким евакуйований</ion-label>
+          <ion-label position="stacked" class="item-label">17. Ким евакуйований</ion-label>
           <ion-text class="item-text">{{ report.evacuatedBy }}</ion-text>
         </ion-item>
       </ion-list>
@@ -205,7 +205,11 @@ export default defineComponent({
   padding: 0 10px 0 10px;
   border-top: #dddddd 1px solid;
 }
+.item-label {
+  color: #666666;
+}
 .item-text {
+  color: black;
   margin-bottom: 10px;
   margin-top: 10px;
 }

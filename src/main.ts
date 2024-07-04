@@ -88,7 +88,7 @@ import './theme/variables.css';
 
 const app = createApp(App)
   .use(IonicVue, {
-    mode: 'md'
+    mode: 'ios'
   })
   .use(router);
 
