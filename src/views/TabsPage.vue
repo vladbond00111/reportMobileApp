@@ -1,8 +1,15 @@
 <template>
   <ion-page>
     <ion-header id="header">
-      <ion-toolbar>
-        <ion-title>Форма100 - {{ title }}</ion-title>
+      <ion-toolbar style="height: 56px">
+        <div
+            v-if="title !== 'Список звітів'"
+            class="back"
+            @click="goBack"
+        >
+          Назад
+        </div>
+        <ion-title style="height: 56px; font-size: 18px">Форма100 - {{ title }}</ion-title>
         <img
             src="../assets/medicred.png"
             width="56"
@@ -47,12 +54,15 @@ export default defineComponent({
     const onGoTo = (link) => {
       ionRouter.push(link);
     }
+    const goBack = () => {
+      ionRouter.back();
+    }
 
-    const title = ref('Список репортів');
+    const title = ref('Список звітів');
     const route = useRoute();
     watch(() => route.path, (newPath) => {
       if (newPath.includes('/tabs/tab1')) {
-        title.value = 'Список репортів';
+        title.value = 'Список звітів';
       } else if (newPath.includes('/tabs/tab2')) {
         title.value = 'Новий звіт';
       } else if (newPath.includes('/tabs/tab3')) {
@@ -63,6 +73,7 @@ export default defineComponent({
     });
     return {
       onGoTo,
+      goBack,
       title,
       ellipse,
       square,
@@ -73,6 +84,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.back {
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  padding: 10px;
+  font-weight: bolder;
+  z-index: 1;
+  color: var(--ion-color-primary);
+}
 .logo {
   position: absolute;
   top: 0;

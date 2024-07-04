@@ -8,6 +8,7 @@
             label="Позивний (ПІБ)"
             label-placement="floating"
             fill="outline"
+            mode="md"
             @ionInput="onNameChange(form.nickname, 'nickname')"
         />
         <div v-if="searchedStaffByNickame.length" class="autocomplete-tooltip">
@@ -37,6 +38,7 @@
         label="ПІБ"
         label-placement="floating"
         fill="outline"
+        mode="md"
     />
     <ion-input
         v-model="form.birthdate"
@@ -44,6 +46,7 @@
         label="Дата народження"
         label-placement="floating"
         fill="outline"
+        mode="md"
     />
     <ion-textarea
         v-model="form.unit"
@@ -52,6 +55,7 @@
         label-placement="floating"
         :auto-grow="true"
         fill="outline"
+        mode="md"
     />
     <ion-input
         v-model="form.rank"
@@ -59,6 +63,7 @@
         label="Звання, посада"
         label-placement="floating"
         fill="outline"
+        mode="md"
     />
     <ion-input
         v-model="form.phone"
@@ -67,6 +72,7 @@
         label="Телефон"
         label-placement="floating"
         fill="outline"
+        mode="md"
     />
     <ion-input
         v-model="form.date"
@@ -74,6 +80,7 @@
         label="Дата та час події"
         label-placement="floating"
         fill="outline"
+        mode="md"
     />
     <ion-input
         v-model="form.location"
@@ -81,6 +88,7 @@
         label="Звання, посада"
         label-placement="floating"
         fill="outline"
+        mode="md"
     />
     <ion-input
         v-model="form.situation"
@@ -88,6 +96,7 @@
         label="Обставини"
         label-placement="floating"
         fill="outline"
+        mode="md"
     />
     <ion-input
         v-model="form.witnesses"
@@ -95,6 +104,7 @@
         label="Свідки"
         label-placement="floating"
         fill="outline"
+        mode="md"
     />
     <ion-textarea
         v-model="form.diagnosis"
@@ -103,6 +113,7 @@
         label-placement="floating"
         :auto-grow="true"
         fill="outline"
+        mode="md"
     />
     <ion-textarea
         v-model="form.help"
@@ -111,6 +122,7 @@
         label-placement="floating"
         :auto-grow="true"
         fill="outline"
+        mode="md"
     />
     <ion-textarea
         v-model="form.tq"
@@ -119,6 +131,7 @@
         label-placement="floating"
         :auto-grow="true"
         fill="outline"
+        mode="md"
     />
     <ion-textarea
         v-model="form.state"
@@ -127,6 +140,7 @@
         label-placement="floating"
         :auto-grow="true"
         fill="outline"
+        mode="md"
     />
     <ion-textarea
         v-model="form.additional"
@@ -135,6 +149,7 @@
         label-placement="floating"
         :auto-grow="true"
         fill="outline"
+        mode="md"
     />
     <ion-textarea
         v-model="form.lost"
@@ -143,6 +158,7 @@
         label-placement="floating"
         :auto-grow="true"
         fill="outline"
+        mode="md"
     />
     <ion-textarea
         v-model="form.timePass"
@@ -151,6 +167,7 @@
         label-placement="floating"
         :auto-grow="true"
         fill="outline"
+        mode="md"
     />
     <ion-textarea
         v-model="form.evacuatedBy"
@@ -159,6 +176,7 @@
         label-placement="floating"
         :auto-grow="true"
         fill="outline"
+        mode="md"
     />
   </ion-content>
   <div class="buttons-block">

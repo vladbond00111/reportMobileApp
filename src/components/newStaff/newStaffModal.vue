@@ -27,6 +27,7 @@
           label-placement="floating"
           :auto-grow="true"
           fill="outline"
+          mode="md"
       />
       <ion-input
           v-model="form.name"
@@ -34,6 +35,7 @@
           label="ПІБ"
           label-placement="floating"
           fill="outline"
+          mode="md"
       />
       <ion-input
           v-model="form.birthdate"
@@ -41,6 +43,7 @@
           label="Дата народження"
           label-placement="floating"
           fill="outline"
+          mode="md"
       />
       <ion-input
           v-model="form.rank"
@@ -48,6 +51,7 @@
           label="Звання"
           label-placement="floating"
           fill="outline"
+          mode="md"
       />
       <ion-input
           v-model="form.workPosition"
@@ -55,6 +59,7 @@
           label="Посада"
           label-placement="floating"
           fill="outline"
+          mode="md"
       />
       <ion-input
           v-model="form.phone"
@@ -63,6 +68,7 @@
           label="Телефон"
           label-placement="floating"
           fill="outline"
+          mode="md"
       />
       <ion-textarea
           v-model="form.unit"
@@ -71,6 +77,7 @@
           label-placement="floating"
           :auto-grow="true"
           fill="outline"
+          mode="md"
       />
       <ion-textarea
           v-model="form.unit2"
@@ -79,6 +86,7 @@
           label-placement="floating"
           :auto-grow="true"
           fill="outline"
+          mode="md"
       />
       <ion-textarea
           v-model="form.unit3"
@@ -87,6 +95,7 @@
           label-placement="floating"
           :auto-grow="true"
           fill="outline"
+          mode="md"
       />
       <ion-textarea
           v-model="form.unit4"
@@ -95,6 +104,7 @@
           label-placement="floating"
           :auto-grow="true"
           fill="outline"
+          mode="md"
       />
       <ion-textarea
           v-model="form.unit5"
@@ -103,6 +113,7 @@
           label-placement="floating"
           :auto-grow="true"
           fill="outline"
+          mode="md"
       />
     </ion-content>
   </ion-modal>

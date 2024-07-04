@@ -1,22 +1,20 @@
 <template>
-  <ion-item>
-    <ion-card
+  <ion-card
       class="card"
       @click="toReportView(report.id)"
-    >
-      <ion-card-header>
-        <ion-card-title>{{ report.nickname }}</ion-card-title>
-        <ion-card-subtitle>{{ report.name }}</ion-card-subtitle>
-      </ion-card-header>
+  >
+    <ion-card-header>
+      <ion-card-title>{{ report.nickname }}</ion-card-title>
+      <ion-card-subtitle>{{ report.name }}</ion-card-subtitle>
+    </ion-card-header>
 
-      <ion-card-content>
-        {{ report.description }}
-      </ion-card-content>
+    <ion-card-content>
+      {{ report.description }}
+    </ion-card-content>
 
-      <!--              <ion-button fill="clear" @click="toReportView(report.id)">Переглянути</ion-button>-->
-<!--      <ion-button color="primary" style="margin-left: 20px">Редагувати</ion-button>-->
-    </ion-card>
-  </ion-item>
+    <!--              <ion-button fill="clear" @click="toReportView(report.id)">Переглянути</ion-button>-->
+    <!--      <ion-button color="primary" style="margin-left: 20px">Редагувати</ion-button>-->
+  </ion-card>
 </template>
 
 <script>
@@ -43,8 +41,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .card {
-  padding-bottom: 8px;
-  width: 100%;
+  margin-bottom: 16px;
   cursor: pointer;
   border-left: 3px solid var(--accent-color);
 }
