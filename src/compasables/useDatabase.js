@@ -6,7 +6,7 @@ const db = new Dexie('MyDatabase2');
 
 // Визначення схеми
 db.version(2).stores({
-    reportsTable: '++id, name, nickname, birthday, unit, rank, phone, location, situation, witnesses, diagnosis, help, tq, state, additional, lost, timePass, evacuatedBy',
+    reportsTable: '++id, name, nickname, birthday, unit, rank, phone, location, situation, witnesses, diagnosis, help, tq, state, additional, lost, timePass, evacuatedBy, healthStatus',
     staffTable: '++id, rank, name, nickname, phone, birthday, unit, unit2, unit3, unit4, unit5'
     // staffTable: '++id, Звання, ПІБ, Позивний, телефон, дата народження, Посада, Відділення, Взвод, Рота, Батальйон, Бригада'
 });
