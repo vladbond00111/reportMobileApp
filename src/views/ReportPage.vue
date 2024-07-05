@@ -86,6 +86,12 @@
           <ion-label position="stacked" class="item-label">17. Ким евакуйований</ion-label>
           <ion-text class="item-text">{{ report.evacuatedBy }}</ion-text>
         </ion-item>
+<!-- 
+        <ion-item>
+          <ion-label position="stacked">18. Стан</ion-label>
+          <ion-text class="item-text">{{ report.healthStatus }}</ion-text>
+        </ion-item> -->
+
       </ion-list>
     </ion-content>
     <div class="buttons-block">

@@ -2,6 +2,7 @@
 http://ionicframework.com/docs/theming/ */
 :root {
     --ion-color-primary: #5DB075;
+    --ion-color-primary-focused: #4B9460;
     --ion-color-light: #F6F6F6;
     --accent-color: #FFD700;
 }

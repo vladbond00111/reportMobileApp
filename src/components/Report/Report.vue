@@ -1,5 +1,18 @@
 <template>
   <ion-content class="ion-padding">
+
+    <ion-segment v-model="form.healthStatus" class="ion-segment">
+      <ion-segment-button class="ion-segment-button" value="200">
+        <ion-label>200</ion-label>
+      </ion-segment-button>
+      <ion-segment-button class="ion-segment-button" value="300">
+        <ion-label>300</ion-label>
+      </ion-segment-button>
+      <ion-segment-button class="ion-segment-button" value="Хвороба">
+        <ion-label>Хвороба</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
     <div style="display: flex">
       <div class="input-wrapper">
         <ion-input
@@ -194,7 +207,7 @@
 
 <script lang="js">
 import { defineComponent, ref, watch } from 'vue';
-import { IonInput } from '@ionic/vue';
+import { IonInput, IonLabel, IonSegment, IonSegmentButton } from '@ionic/vue';
 import { useRouter } from 'vue-router';
 import { postToReports, updateByIdInReports, searchInStaffTable } from '@/compasables/useDatabase.js';
 // import vueDebounce from 'vue-debounce';
@@ -213,7 +226,10 @@ export default defineComponent({
   },
   components: {
     NewStaffModal,
-    IonInput
+    IonInput,
+    IonLabel,
+    IonSegment,
+    IonSegmentButton
   },
   setup(props) {
     const router = useRouter();
@@ -235,7 +251,8 @@ export default defineComponent({
       additional: '',
       lost: '',
       timePass: '',
-      evacuatedBy: ''
+      evacuatedBy: '',
+      healthStatus: ''
     });
 
     watch(() => props.report, (value) => {
@@ -304,6 +321,21 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+.ion-segment {
+  --background:var(--ion-color-primary);
+  margin-bottom: 16px;
+  border-radius: 4px;
+}
+.ion-segment-button {
+  --background: var(--ion-color-primary);
+  --indicator-color: var(--ion-color-primary-focused);
+
+  --background-checked: var(--ion-color-primary-focused);
+  // --color-checked: var(--ion-color-light); styles for md
+  // --color: var(--ion-color-light); 
+  // --background-color: black;
+  // --background-focused: black;
+}
 .buttons-block {
   display: flex;
   justify-content: end;
