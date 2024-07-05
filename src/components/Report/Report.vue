@@ -207,7 +207,7 @@
 
 <script lang="js">
 import { defineComponent, ref, watch } from 'vue';
-import { IonInput, IonLabel, IonSegment, IonSegmentButton } from '@ionic/vue';
+import { IonSegment, IonSegmentButton } from '@ionic/vue';
 import { useRouter } from 'vue-router';
 import { postToReports, updateByIdInReports, searchInStaffTable } from '@/compasables/useDatabase.js';
 // import vueDebounce from 'vue-debounce';
@@ -226,8 +226,6 @@ export default defineComponent({
   },
   components: {
     NewStaffModal,
-    IonInput,
-    IonLabel,
     IonSegment,
     IonSegmentButton
   },
