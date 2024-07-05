@@ -207,7 +207,7 @@
 
 <script lang="js">
 import { defineComponent, ref, watch } from 'vue';
-import { IonInput, IonLabel, IonSegment, IonSegmentButton } from '@ionic/vue';
+import { IonSegment, IonSegmentButton } from '@ionic/vue';
 import { useRouter } from 'vue-router';
 import { postToReports, updateByIdInReports, searchInStaffTable } from '@/compasables/useDatabase.js';
 // import vueDebounce from 'vue-debounce';
@@ -226,8 +226,6 @@ export default defineComponent({
   },
   components: {
     NewStaffModal,
-    IonInput,
-    IonLabel,
     IonSegment,
     IonSegmentButton
   },
@@ -324,15 +322,16 @@ export default defineComponent({
 .ion-segment {
   --background:var(--ion-color-primary);
   margin-bottom: 16px;
-  border-radius: 4px;
+  border-radius: 10px;
 }
 .ion-segment-button {
+  border-radius: 10px;
   --background: var(--ion-color-primary);
   --indicator-color: var(--ion-color-primary-focused);
-
   --background-checked: var(--ion-color-primary-focused);
+  --color: var(--ion-color-light); 
+
   // --color-checked: var(--ion-color-light); styles for md
-  // --color: var(--ion-color-light); 
   // --background-color: black;
   // --background-focused: black;
 }

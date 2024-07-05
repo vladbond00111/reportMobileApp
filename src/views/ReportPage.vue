@@ -3,94 +3,94 @@
     <ion-content v-if="report" class="ion-padding-end">
       <ion-list>
         <ion-item>
-          <ion-label position="stacked" class="item-label">1. Дата та час події</ion-label>
+          <ion-label position="stacked" class="item-label">1. Стан</ion-label>
+          <ion-text class="item-text">{{ report.healthStatus }}</ion-text>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked" class="item-label">2. Дата та час події</ion-label>
           <ion-text class="item-text">{{ report.date }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked" class="item-label">2. Позивний (ПІБ)</ion-label>
+          <ion-label position="stacked" class="item-label">3. Позивний (ПІБ)</ion-label>
           <ion-text class="item-text">{{ report.nickname }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked" class="item-label">3. ПІБ</ion-label>
+          <ion-label position="stacked" class="item-label">4. ПІБ</ion-label>
           <ion-text class="item-text">{{ report.name }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked" class="item-label">4. Підрозділ</ion-label>
+          <ion-label position="stacked" class="item-label">5. Підрозділ</ion-label>
           <ion-text class="item-text">{{ report.unit }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked" class="item-label">5. Звання, посада</ion-label>
+          <ion-label position="stacked" class="item-label">6. Звання, посада</ion-label>
           <ion-text class="item-text">{{ report.rank }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked" class="item-label">6. Телефон</ion-label>
+          <ion-label position="stacked" class="item-label">7. Телефон</ion-label>
           <ion-text class="item-text">{{ report.phone }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked" class="item-label">7. Місце події</ion-label>
+          <ion-label position="stacked" class="item-label">8. Місце події</ion-label>
           <ion-text class="item-text">{{ report.location }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked" class="item-label">8. Обставини</ion-label>
+          <ion-label position="stacked" class="item-label">9. Обставини</ion-label>
           <ion-text class="item-text">{{ report.situation }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked" class="item-label">9. Свідки</ion-label>
+          <ion-label position="stacked" class="item-label">10. Свідки</ion-label>
           <ion-text class="item-text">{{ report.witnesses }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked" class="item-label">10. Попередній діагноз</ion-label>
+          <ion-label position="stacked" class="item-label">11. Попередній діагноз</ion-label>
           <ion-text class="item-text">{{ report.diagnosis }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked" class="item-label">11. Надана допомога</ion-label>
+          <ion-label position="stacked" class="item-label">12. Надана допомога</ion-label>
           <ion-text class="item-text">{{ report.help }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked" class="item-label">12. TQ</ion-label>
+          <ion-label position="stacked" class="item-label">13. TQ</ion-label>
           <ion-text class="item-text">{{ report.tq }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked" class="item-label">13. Стан в динаміці</ion-label>
+          <ion-label position="stacked" class="item-label">14. Стан в динаміці</ion-label>
           <ion-text class="item-text">{{ report.state }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked" class="item-label">14. В засобах індивідуального захисту</ion-label>
+          <ion-label position="stacked" class="item-label">15. В засобах індивідуального захисту</ion-label>
           <ion-text class="item-text">{{ report.additional }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked" class="item-label">15. Втрачене майно</ion-label>
+          <ion-label position="stacked" class="item-label">16. Втрачене майно</ion-label>
           <ion-text class="item-text">{{ report.lost }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked" class="item-label">16. Час передачі на</ion-label>
+          <ion-label position="stacked" class="item-label">17. Час передачі на</ion-label>
           <ion-text class="item-text">{{ report.timePass }}</ion-text>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked" class="item-label">17. Ким евакуйований</ion-label>
+          <ion-label position="stacked" class="item-label">18. Ким евакуйований</ion-label>
           <ion-text class="item-text">{{ report.evacuatedBy }}</ion-text>
         </ion-item>
-<!-- 
-        <ion-item>
-          <ion-label position="stacked">18. Стан</ion-label>
-          <ion-text class="item-text">{{ report.healthStatus }}</ion-text>
-        </ion-item> -->
 
       </ion-list>
     </ion-content>
@@ -164,23 +164,24 @@ export default defineComponent({
 
     const copy = async (reportData) => {
       const formattedText = `
-1. Дата та час події - ${reportData.date}
-2. Позивний (ПІБ) - ${reportData.nickname}
-3. ПІБ - ${reportData.name}
-4. Підрозділ - ${reportData.unit}
-5. Звання, посада - ${reportData.rank}
-6. Телефон - ${reportData.phone}
-7. Місце події - ${reportData.location}
-8. Обставини - ${reportData.situation}
-9. Свідки - ${reportData.witnesses}
-10. Попередній діагноз - ${reportData.diagnosis}
-11. Надана допомога - ${reportData.help}
-12. TQ - ${reportData.tq}
-13. Стан в динаміці - ${reportData.state}
-14. В засобах індивідуального захисту - ${reportData.additional}
-15. Втрачене майно - ${reportData.lost}
-16. Час передачі на - ${reportData.timePass}
-17. Ким евакуйований - ${reportData.evacuatedBy}
+1. Стан - ${reportData.healthStatus}
+2. Дата та час події - ${reportData.date}
+3. Позивний (ПІБ) - ${reportData.nickname}
+4. ПІБ - ${reportData.name}
+5. Підрозділ - ${reportData.unit}
+6. Звання, посада - ${reportData.rank}
+7. Телефон - ${reportData.phone}
+8. Місце події - ${reportData.location}
+9. Обставини - ${reportData.situation}
+10. Свідки - ${reportData.witnesses}
+11. Попередній діагноз - ${reportData.diagnosis}
+12. Надана допомога - ${reportData.help}
+13. TQ - ${reportData.tq}
+14. Стан в динаміці - ${reportData.state}
+15. В засобах індивідуального захисту - ${reportData.additional}
+16. Втрачене майно - ${reportData.lost}
+17. Час передачі на - ${reportData.timePass}
+18. Ким евакуйований - ${reportData.evacuatedBy}
       `.trim();
 
       try {
