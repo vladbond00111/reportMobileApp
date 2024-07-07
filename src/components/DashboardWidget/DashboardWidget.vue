@@ -4,8 +4,8 @@
         <ion-card-title class="ion-card-title">{{ title }}</ion-card-title>
       </ion-card-header>
       <ion-card-content class="ion-card-content" v-if="total">
-        <p class="total-records">Всього: {{ total }}</p>
-        <p class="per-day">(+{{ currentDay }} за день)</p>
+        <ion-label class="total-records">Всього: {{ total }}</ion-label>
+        <ion-label class="per-day">(+{{ currentDay }} за день)</ion-label>
       </ion-card-content>
     </ion-card>
   </template>
@@ -69,6 +69,7 @@
   .total-records {
     font-size: 1rem;
     color: rgb(31, 31, 31);
+    display: block;
   }
   .active {
     background-color: lightgray;
