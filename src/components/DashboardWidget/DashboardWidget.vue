@@ -50,7 +50,7 @@
     margin: 0px;
     width: 33%;
     text-align: center;
-    border-bottom: 4px solid #5C88C4;
+    border-bottom: 4px solid var(--disease-color)
   }
   .ion-card-header {
     padding: 0.5rem;
