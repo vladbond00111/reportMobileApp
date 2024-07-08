@@ -2,31 +2,68 @@
     <ion-page style="margin-top: 56px">
         <ion-content :fullscreen="true">
             <div v-if="staff">
-                <ion-card>
+                <ion-card class="staff-card">
                     <ion-card-header>
                         <ion-card-title>{{ staff.nickname }}</ion-card-title>
-                        <ion-card-subtitle>{{ staff.name }}</ion-card-subtitle>
-                        <ion-card-subtitle>
-                            <ion-label v-if="staff.unit">{{ staff.unit }}, </ion-label>
-                            <ion-label v-if="staff.unit2">{{ staff.unit2 }}, </ion-label>
-                            <ion-label v-if="staff.unit3">{{ staff.unit3 }}, </ion-label>
-                            <ion-label v-if="staff.unit4">{{ staff.unit4 }}, </ion-label>
-                            <ion-label v-if="staff.unit5">{{ staff.unit5 }}</ion-label>
-                        </ion-card-subtitle>
                     </ion-card-header>
                     <ion-card-content>
+                        <ion-list class="info-list">
+                            <ion-item v-if="staff.name">
+                                <ion-label>ПІБ</ion-label>
+                                <ion-note slot="end">{{ staff.name }}</ion-note>
+                            </ion-item>
+                            <ion-item v-if="staff.birthdate">
+                                <ion-label>Дата народження</ion-label>
+                                <ion-note slot="end">{{ staff.birthdate }}</ion-note>
+                            </ion-item>
+                            <ion-item v-if="staff.unit">
+                                <ion-label>Відділення</ion-label>
+                                <ion-note slot="end">{{ staff.unit }}</ion-note>
+                            </ion-item>
+                            <ion-item v-if="staff.unit2">
+                                <ion-label>Взвод</ion-label>
+                                <ion-note slot="end">{{ staff.unit2 }}</ion-note>
+                            </ion-item>
+                            <ion-item v-if="staff.unit3">
+                                <ion-label>Рота</ion-label>
+                                <ion-note slot="end">{{ staff.unit3 }}</ion-note>
+                            </ion-item>
+                            <ion-item v-if="staff.unit4">
+                                <ion-label>Батальйон</ion-label>
+                                <ion-note slot="end">{{ staff.unit4 }}</ion-note>
+                            </ion-item>
+                            <ion-item v-if="staff.unit5">
+                                <ion-label>Бригада</ion-label>
+                                <ion-note slot="end">{{ staff.unit5 }}</ion-note>
+                            </ion-item>
+                            <ion-item v-if="staff.rank">
+                                <ion-label>Звання</ion-label>
+                                <ion-note slot="end">{{ staff.rank }}</ion-note>
+                            </ion-item>
+                            <ion-item v-if="staff.workPosition">
+                                <ion-label>Посада</ion-label>
+                                <ion-note slot="end">{{ staff.workPosition }}</ion-note>
+                            </ion-item>
+                            <ion-item v-if="staff.phone">
+                                <ion-label>Телефон</ion-label>
+                                <ion-note slot="end">{{ staff.phone }}</ion-note>
+                            </ion-item>
+                            <ion-item v-if="staff.date">
+                                <ion-label>Дата та час події</ion-label>
+                                <ion-note slot="end">{{ staff.date }}</ion-note>
+                            </ion-item>
+                        </ion-list>
                         <div class="buttons">
-                            <ion-button color="success">300</ion-button>
-                            <ion-button color="warning">300</ion-button>
-                            <ion-button color="danger">300</ion-button>
-                            <ion-button color="dark">200</ion-button>
-                            <ion-button color="light">ХВ</ion-button>
+                            <ion-button class="button" color="success">300</ion-button>
+                            <ion-button class="button" color="warning">300</ion-button>
+                            <ion-button class="button" color="danger">300</ion-button>
+                            <ion-button class="button" color="dark">200</ion-button>
+                            <ion-button class="button" color="medium">ХВ</ion-button>
                         </div>
                     </ion-card-content>
                 </ion-card>
                 <ion-list>
-                    <report-card v-for="report in reports" :report="report" :key="report.id"
-                        @click="viewReport(report)" />
+                    <report-card class="report-card" v-for="report in reports" :report="report" :key="report.id" />
                 </ion-list>
             </div>
         </ion-content>
@@ -43,7 +80,7 @@ export default defineComponent({
     components: {
         ReportCard
     },
-    setup(props) {
+    setup() {
         const staff = ref<any>(null);
         const reports = ref<any[]>([]);
 
@@ -58,24 +95,32 @@ export default defineComponent({
             fetchFighterData(reportId);
         });
 
-        const viewReport = (report: any) => {
-            // Логіка для перегляду обраного звіту
-        };
 
         return {
             staff,
-            reports,
-            viewReport
+            reports
         };
     }
 });
 </script>
 
 <style scoped lang="scss">
-
 .buttons {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin: 20px 0 10px;
+}
+.button {
+    width: 18%;
+    margin: 0;
+}
+ion-item {
+    --padding-start: 0;
+}
+.staff-card {
+    margin: 26px 16px 16px;
+}
+.report-card {
+    margin: 10px 16px 24px;
 }
 </style>

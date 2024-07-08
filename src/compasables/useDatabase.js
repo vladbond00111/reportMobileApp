@@ -7,12 +7,12 @@ const db = new Dexie('MyDatabase2');
 // Визначення схеми
 db.version(2).stores({
     reportsTable: '++id, name, nickname, birthday, unit, rank, phone, location, situation, witnesses, diagnosis, help, tq, state, additional, lost, timePass, evacuatedBy, healthStatus, createdAt',
-    staffTable: '++id, rank, name, nickname, phone, birthday, unit, unit2, unit3, unit4, unit5'
+    staffTable: '++id, rank, name, nickname, phone, birthday, workPosition, unit, unit2, unit3, unit4, unit5'
     // staffTable: '++id, Звання, ПІБ, Позивний, телефон, дата народження, Посада, Відділення, Взвод, Рота, Батальйон, Бригада'
 });
 
 // Reports Table
-export const postToReports = async (data, staffId) => {
+export const postToReports = async (data) => {
     try {
         const rawData = toRaw(data);
         rawData.createdAt = new Date().toString();

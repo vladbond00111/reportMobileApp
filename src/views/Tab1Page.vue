@@ -11,7 +11,7 @@
         </ion-list>
 
         <div class="search-container">
-          <ion-searchbar v-model="searchQuery" :debounce="500" @ionInput="onSearchInput"
+          <ion-searchbar class="search-bar" v-model="searchQuery" :animated="true" :debounce="500" @ionInput="onSearchInput"
             placeholder="Пошук за ПІБ або позивним" />
           <ion-list v-if="searchedStaff.length" class="autocomplete-tooltip">
             <ion-item v-for="staff in searchedStaff" :key="staff.id" @click="toStaffCard(staff.id)" button>
@@ -125,13 +125,21 @@ export default defineComponent({
   margin-top: 10px;
   gap: 16px;
 }
-.search-container {
-  padding: 4px;
+.search-bar {
+  padding: 8px 16px 0px;
+  --border-radius: 8px;
+}
+:deep .searchbar-input-container {
+  min-height: 50px !important;
+}
+:deep .searchbar-input {
+  padding-top: 8px !important;
 }
 .autocomplete-tooltip {
   position: absolute;
   background: white;
   border: 1px solid #ddd;
+  border-radius: 8px;
   z-index: 1000;
   width: calc(100% - 32px);
   margin: 0 16px;

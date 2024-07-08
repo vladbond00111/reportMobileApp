@@ -3,9 +3,9 @@
       <ion-card-header class="ion-card-header">
         <ion-card-title class="ion-card-title">{{ title }}</ion-card-title>
       </ion-card-header>
-      <ion-card-content class="ion-card-content" v-if="total">
-        <ion-label class="total-records">Всього: {{ total }}</ion-label>
-        <ion-label class="per-day">(+{{ currentDay }} за день)</ion-label>
+      <ion-card-content class="ion-card-content">
+        <ion-label v-if="total != null" class="total-records">Всього: {{ total }}</ion-label>
+        <ion-label v-if="currentDay > 0" class="per-day">(+{{ currentDay }} за день)</ion-label>
       </ion-card-content>
     </ion-card>
   </template>
