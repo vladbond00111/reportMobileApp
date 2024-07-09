@@ -7,7 +7,7 @@ const db = new Dexie('MyDatabase2');
 // Визначення схеми
 db.version(2).stores({
     reportsTable: '++id, name, nickname, birthday, unit, rank, phone, location, situation, witnesses, diagnosis, help, tq, state, additional, lost, timePass, evacuatedBy, healthStatus, createdAt',
-    staffTable: '++id, rank, name, nickname, phone, birthday, unit, unit2, unit3, unit4, unit5'
+    staffTable: '++id, rank, name, nickname, phone, birthday, workPosition, unit, unit2, unit3, unit4, unit5'
     // staffTable: '++id, Звання, ПІБ, Позивний, телефон, дата народження, Посада, Відділення, Взвод, Рота, Батальйон, Бригада'
 });
 
@@ -54,7 +54,19 @@ export const getAllFromReports = async () => {
         console.error('Failed to retrieve data:', error);
     }
 };
-
+export const getReportsByNameAndNickname = async (name, nickname) => {
+    try {
+        const reports = await db.reportsTable
+            .where('name')
+            .equals(name)
+            .and(report => report.nickname === nickname)
+            .toArray();
+        console.log('Reports for name and nickname:', name, nickname, reports);
+        return reports;
+    } catch (error) {
+        console.error('Failed to retrieve reports for name and nickname:', error);
+    }
+};
 // Функція для додавання даних до staffTable
 export const postToStaffTable = async (data) => {
     try {
@@ -74,6 +86,18 @@ export const postToStaffTable = async (data) => {
         return id;
     } catch (error) {
         console.error('Failed to add data to staffTable:', error);
+    }
+};
+
+// Функція для отримання даних з staffTable за ID
+export const getByIdFromStaffTable = async (id) => {
+    try {
+        console.log('Getting data by ID:', id);
+        const data = await db.staffTable.get(id);
+        console.log('Data retrieved by ID:', data);
+        return data;
+    } catch (error) {
+        console.error('Failed to retrieve data from staffTable:', error);
     }
 };
 

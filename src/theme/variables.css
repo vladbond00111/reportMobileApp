@@ -5,4 +5,6 @@ http://ionicframework.com/docs/theming/ */
     --ion-color-primary-focused: #4B9460;
     --ion-color-light: #F6F6F6;
     --accent-color: #FFD700;
+    --disease-color: #5C88C4;
+    --danger-color: #FF6969;
 }

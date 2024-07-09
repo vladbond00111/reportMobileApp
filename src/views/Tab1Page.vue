@@ -3,32 +3,28 @@
     <ion-content :fullscreen="true">
       <ion-content>
         <ion-list class="widgets">
-          <dashboard-widget
-            title="300"
-            :total= "count300"
-            :currentDay="countToday300"
-            :isActive="activeFilter === '300'"
-            @toggleFilter="toggleFilter"
-            :style="{borderColor: 'var(--accent-color)'}"
-          />
-          <dashboard-widget
-            title="200"
-            :total="count200"
-            :currentDay="countToday200"
-            :isActive="activeFilter === '200'"
-            @toggleFilter="toggleFilter"
-            :style="{borderColor: '#FF6969'}"
-          />
-          <dashboard-widget
-            title="4.5.0"
-          />
+          <dashboard-widget title="300" :total="count300" :currentDay="countToday300" :isActive="activeFilter === '300'"
+            @toggleFilter="toggleFilter" :style="{ borderColor: 'var(--accent-color)' }" />
+          <dashboard-widget title="200" :total="count200" :currentDay="countToday200" :isActive="activeFilter === '200'"
+            @toggleFilter="toggleFilter" :style="{ borderColor: 'var(--danger-color)' }" />
+          <dashboard-widget title="4.5.0" />
         </ion-list>
+
+        <div class="search-container">
+          <ion-searchbar class="search-bar" v-model="searchQuery" :animated="true" :debounce="500" @ionInput="onSearchInput"
+            placeholder="Пошук за ПІБ або позивним" />
+          <ion-list v-if="searchedStaff.length" class="autocomplete-tooltip">
+            <ion-item v-for="staff in searchedStaff" :key="staff.id" @click="toStaffCard(staff.id)" button>
+              <ion-label class="ion-text-wrap">
+                <div style="font-weight: bold;">{{ staff.nickname }}</div>
+                <div>{{ staff.name }}</div>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
+
         <ion-list>
-          <report-card
-              v-for="report in filteredReports"
-              :report="report"
-              :key="report.id"
-          />
+          <report-card v-for="report in filteredReports" :report="report" :key="report.id" />
         </ion-list>
       </ion-content>
     </ion-content>
@@ -37,14 +33,17 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref, computed } from 'vue';
-import { getAllFromReports, countHealthStatus, countTodayReports } from '@/compasables/useDatabase.js';
+import { getAllFromReports, countHealthStatus, countTodayReports, searchInStaffTable } from '@/compasables/useDatabase.js';
 import ReportCard from "@/components/ReportCard/ReportCard.vue";
 import DashboardWidget from "@/components/DashboardWidget/DashboardWidget.vue";
+import { debounce } from 'vue-debounce';
+import { IonSearchbar, useIonRouter } from '@ionic/vue';
 
 export default defineComponent({
   components: {
     ReportCard,
-    DashboardWidget
+    DashboardWidget,
+    IonSearchbar
   },
 
   setup() {
@@ -55,6 +54,8 @@ export default defineComponent({
     const countToday300 = ref<number>(0);
     const countToday200 = ref<number>(0);
     const activeFilter = ref<string | null>(null);
+    const searchQuery = ref<any>('');
+    const searchedStaff = ref<any[]>([]);
 
     const getData = async () => {
       reportList.value = await getAllFromReports();
@@ -64,8 +65,23 @@ export default defineComponent({
       countToday200.value = await countTodayReports('200');
     };
 
+    const onSearchInput = async () => {
+      if (searchQuery.value.trim().length > 2) {
+        searchedStaff.value = await searchInStaffTable(searchQuery.value.trim());
+        console.log("test")
+        console.log(searchedStaff.value);
+      } else {
+        searchedStaff.value = [];
+      }
+    };
+
+    const ionRouter = useIonRouter();
+    const toStaffCard = (id: number) => {
+      ionRouter.push(`/tabs/staff/${id}`);
+    };
+
     const toggleFilter = (status: string) => {
-      if(activeFilter.value === status) {
+      if (activeFilter.value === status) {
         activeFilter.value = null;
       } else {
         activeFilter.value = status;
@@ -73,7 +89,7 @@ export default defineComponent({
     };
 
     const filteredReports = computed(() => {
-      if(activeFilter.value) {
+      if (activeFilter.value) {
         return reportList.value.filter((report: any) => report.healthStatus === activeFilter.value);
       }
       return reportList.value;
@@ -91,18 +107,42 @@ export default defineComponent({
       countToday200,
       toggleFilter,
       activeFilter,
-      filteredReports
+      filteredReports,
+      searchQuery,
+      onSearchInput,
+      searchedStaff,
+      toStaffCard
     };
   },
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .widgets {
   padding: 16px;
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
   gap: 16px;
+}
+.search-bar {
+  padding: 8px 16px 0px;
+  --border-radius: 8px;
+}
+:deep .searchbar-input-container {
+  min-height: 50px !important;
+}
+:deep .searchbar-input {
+  padding-top: 8px !important;
+}
+.autocomplete-tooltip {
+  position: absolute;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  z-index: 1000;
+  width: calc(100% - 32px);
+  margin: 0 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 </style>
