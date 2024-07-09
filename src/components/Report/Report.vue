@@ -322,15 +322,16 @@ export default defineComponent({
 .ion-segment {
   --background:var(--ion-color-primary);
   margin-bottom: 16px;
-  border-radius: 4px;
+  border-radius: 10px;
 }
 .ion-segment-button {
+  border-radius: 10px;
   --background: var(--ion-color-primary);
   --indicator-color: var(--ion-color-primary-focused);
-
   --background-checked: var(--ion-color-primary-focused);
+  --color: var(--ion-color-light); 
+
   // --color-checked: var(--ion-color-light); styles for md
-  // --color: var(--ion-color-light); 
   // --background-color: black;
   // --background-focused: black;
 }

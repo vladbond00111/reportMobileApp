@@ -37,11 +37,11 @@ export default defineComponent({
     const borderColor = computed(() => {
       let color;
       if (props.report.healthStatus === '200') {
-        color = '#FF6969';
+        color = 'var(--danger-color)';
       } else if (props.report.healthStatus === '300') {
         color = 'var(--accent-color)';
       } else if (props.report.healthStatus === 'Хвороба') {
-        color = '#5C88C4';
+        color = 'var(--disease-color)';
       }
       return { borderLeft: `3px solid ${color}` };
     });

@@ -69,6 +69,8 @@ export default defineComponent({
         title.value = 'Завантажити дані';
       } else if (newPath.includes('/tabs/report')) {
         title.value = 'Деталі звіту';
+      } else if (newPath.includes('/tabs/staff')) {
+        title.value = 'Картка бійця';
       }
     });
     return {
