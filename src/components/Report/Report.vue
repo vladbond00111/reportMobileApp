@@ -41,7 +41,7 @@
         </div>
       </div>
       <new-staff-modal
-        v-if="!searchedStaffByNickame.length && form.nickname?.length > 3"
+          v-if="type === 'create' && showNewStaffModal && form.nickname?.length > 3"
         @new-staff="setStaffData"
       />
     </div>
@@ -261,6 +261,9 @@ export default defineComponent({
 
     // const searchedStaffByName = ref([]);
     const searchedStaffByNickame = ref([]);
+    const showNewStaffModal = ref(false);
+    let searchTimeout = null;
+
     const setStaffData = (data) => {
       form.value.name = data.name;
       form.value.nickname = data.nickname;
@@ -272,11 +275,20 @@ export default defineComponent({
     // const isDebounce = ref(false);
     const onNameChange = debounce(async (value) => {
       if (value?.length > 2) {
-        console.log('debounce');
         searchedStaffByNickame.value = await searchInStaffTable(value);
-
+        clearTimeout(searchTimeout);
+        if (searchedStaffByNickame.value.length === 0) {
+          searchTimeout = setTimeout(() => {
+            if (searchedStaffByNickame.value.length === 0) {
+              showNewStaffModal.value = true;
+            }
+          }, 2000);
+        } else {
+          showNewStaffModal.value = false;
+        }
       } else {
-        // searchedStaffByName.value = [];
+        clearTimeout(searchTimeout);
+        showNewStaffModal.value = false;
         searchedStaffByNickame.value = [];
       }
     }, '500ms');
@@ -310,6 +322,7 @@ export default defineComponent({
       // searchedStaffByName,
       searchedStaffByNickame,
       onNameChange,
+      showNewStaffModal,
       selectStaff,
       setStaffData,
       saveReport
