@@ -8,3 +8,6 @@ http://ionicframework.com/docs/theming/ */
     --disease-color: #5C88C4;
     --danger-color: #FF6969;
 }
+.ion-color-primary {
+    --ion-color-shade: #4B9460 !important;
+}

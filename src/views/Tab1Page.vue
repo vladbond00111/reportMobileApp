@@ -11,9 +11,9 @@
         </ion-list>
 
         <div class="search-container">
-          <ion-searchbar class="search-bar" v-model="searchQuery" :animated="true" :debounce="500" @ionInput="onSearchInput"
+          <ion-searchbar class="search-bar" v-model="searchQuery" :animated="true" :debounce="500" @ionBlur="onBlur" @ionFocus="onFocus" @ionInput="onSearchInput"
             placeholder="Пошук за ПІБ або позивним" />
-          <ion-list v-if="searchedStaff.length" class="autocomplete-tooltip">
+          <ion-list v-if="isFocused && searchedStaff.length" class="autocomplete-tooltip">
             <ion-item v-for="staff in searchedStaff" :key="staff.id" @click="toStaffCard(staff.id)" button>
               <ion-label class="ion-text-wrap">
                 <div style="font-weight: bold;">{{ staff.nickname }}</div>
@@ -56,6 +56,7 @@ export default defineComponent({
     const activeFilter = ref<string | null>(null);
     const searchQuery = ref<any>('');
     const searchedStaff = ref<any[]>([]);
+    const isFocused = ref<boolean>(false);
 
     const getData = async () => {
       reportList.value = await getAllFromReports();
@@ -73,6 +74,16 @@ export default defineComponent({
       } else {
         searchedStaff.value = [];
       }
+    };
+
+    const onFocus = () => {
+      isFocused.value = true;
+    };
+
+    const onBlur = () => {
+      setTimeout(() => {
+        isFocused.value = false;
+      }, 150);
     };
 
     const ionRouter = useIonRouter();
@@ -111,7 +122,10 @@ export default defineComponent({
       searchQuery,
       onSearchInput,
       searchedStaff,
-      toStaffCard
+      toStaffCard,
+      isFocused,
+      onFocus,
+      onBlur
     };
   },
 });
@@ -133,7 +147,19 @@ export default defineComponent({
   min-height: 50px !important;
 }
 :deep .searchbar-input {
-  padding-top: 8px !important;
+  padding-top: 6px !important;
+  padding-left: calc(50% - 90px) !important;
+}
+:deep .searchbar-left-aligned {
+  .searchbar-input {
+    padding-left: 42px !important;
+  }
+  .searchbar-search-icon {
+    left: 10px !important;
+  }
+}
+:deep .searchbar-clear-button {
+  right: 10px !important;
 }
 .autocomplete-tooltip {
   position: absolute;
