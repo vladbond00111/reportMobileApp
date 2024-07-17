@@ -150,7 +150,8 @@ export default defineComponent({
   padding-top: 6px !important;
   padding-left: calc(50% - 90px) !important;
 }
-:deep .searchbar-has-focus {
+:deep .searchbar-has-focus,
+:deep .searchbar-has-value {
   .searchbar-input {
     padding-left: 42px !important;
   }
