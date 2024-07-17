@@ -150,16 +150,16 @@ export default defineComponent({
   padding-top: 6px !important;
   padding-left: calc(50% - 90px) !important;
 }
-:deep .searchbar-left-aligned {
+:deep .searchbar-has-focus {
   .searchbar-input {
     padding-left: 42px !important;
   }
   .searchbar-search-icon {
-    left: 10px !important;
+    left: 12px !important;
   }
 }
 :deep .searchbar-clear-button {
-  right: 10px !important;
+  right: 6px !important;
 }
 .autocomplete-tooltip {
   position: absolute;
