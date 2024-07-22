@@ -36,7 +36,6 @@ import { defineComponent, onMounted, ref, computed } from 'vue';
 import { getAllFromReports, countHealthStatus, countTodayReports, searchInStaffTable } from '@/compasables/useDatabase.js';
 import ReportCard from "@/components/ReportCard/ReportCard.vue";
 import DashboardWidget from "@/components/DashboardWidget/DashboardWidget.vue";
-import { debounce } from 'vue-debounce';
 import { IonSearchbar, useIonRouter } from '@ionic/vue';
 
 export default defineComponent({

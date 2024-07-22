@@ -117,6 +117,10 @@ export default defineComponent({
 ion-item {
     --padding-start: 0;
 }
+ion-note {
+    max-width: 200px;
+    text-align: right;
+}
 .staff-card {
     margin: 26px 16px 16px;
 }
