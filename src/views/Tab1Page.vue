@@ -11,16 +11,16 @@
         </ion-list>
 
         <div class="search-container">
-          <ion-searchbar class="search-bar" v-model="searchQuery" :animated="true" :debounce="500" @ionBlur="onBlur" @ionFocus="onFocus" @ionInput="onSearchInput"
+          <ion-searchbar class="search-bar" v-model="searchQuery" :animated="true" :debounce="500"
             placeholder="Пошук за ПІБ або позивним" />
-          <ion-list v-if="isFocused && searchedStaff.length" class="autocomplete-tooltip">
+          <!-- <ion-list v-if="isFocused && searchedStaff.length" class="autocomplete-tooltip">
             <ion-item v-for="staff in searchedStaff" :key="staff.id" @click="toStaffCard(staff.id)" button>
-              <ion-label class="ion-text-wrap">
+              <ion-label class="ion-text-wrap"> 
                 <div style="font-weight: bold;">{{ staff.nickname }}</div>
                 <div>{{ staff.name }}</div>
               </ion-label>
             </ion-item>
-          </ion-list>
+          </ion-list> -->
         </div>
 
         <ion-list>
@@ -33,10 +33,10 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref, computed } from 'vue';
-import { getAllFromReports, countHealthStatus, countTodayReports, searchInStaffTable } from '@/compasables/useDatabase.js';
+import { getAllFromReports, countHealthStatus, countTodayReports } from '@/compasables/useDatabase.js';
 import ReportCard from "@/components/ReportCard/ReportCard.vue";
 import DashboardWidget from "@/components/DashboardWidget/DashboardWidget.vue";
-import { IonSearchbar, useIonRouter } from '@ionic/vue';
+import { IonSearchbar } from '@ionic/vue';
 
 export default defineComponent({
   components: {
@@ -54,8 +54,8 @@ export default defineComponent({
     const countToday200 = ref<number>(0);
     const activeFilter = ref<string | null>(null);
     const searchQuery = ref<any>('');
-    const searchedStaff = ref<any[]>([]);
-    const isFocused = ref<boolean>(false);
+    // const searchedStaff = ref<any[]>([]);
+    // const isFocused = ref<boolean>(false);
 
     const getData = async () => {
       reportList.value = await getAllFromReports();
@@ -65,30 +65,30 @@ export default defineComponent({
       countToday200.value = await countTodayReports('200');
     };
 
-    const onSearchInput = async () => {
-      if (searchQuery.value.trim().length > 2) {
-        searchedStaff.value = await searchInStaffTable(searchQuery.value.trim());
-        console.log("test")
-        console.log(searchedStaff.value);
-      } else {
-        searchedStaff.value = [];
-      }
-    };
+    // const onSearchInput = async () => {
+    //   console.log(searchQuery.value)
+    //   if (searchQuery.value.trim().length > 2) {
+    //     searchedStaff.value = await searchInStaffTable(searchQuery.value.trim());
+    //     console.log(searchedStaff.value);
+    //   } else {
+    //     searchedStaff.value = [];
+    //   }
+    // };
 
-    const onFocus = () => {
-      isFocused.value = true;
-    };
+    // const onFocus = () => {
+    //   isFocused.value = true;
+    // };
 
-    const onBlur = () => {
-      setTimeout(() => {
-        isFocused.value = false;
-      }, 150);
-    };
+    // const onBlur = () => {
+    //   setTimeout(() => {
+    //     isFocused.value = false;
+    //   }, 150);
+    // };
 
-    const ionRouter = useIonRouter();
-    const toStaffCard = (id: number) => {
-      ionRouter.push(`/tabs/staff/${id}`);
-    };
+    // const ionRouter = useIonRouter();
+    // const toStaffCard = (id: number) => {
+    //   ionRouter.push(`/tabs/staff/${id}`);
+    // };
 
     const toggleFilter = (status: string) => {
       if (activeFilter.value === status) {
@@ -99,10 +99,22 @@ export default defineComponent({
     };
 
     const filteredReports = computed(() => {
+      let reports = reportList.value;
+
       if (activeFilter.value) {
-        return reportList.value.filter((report: any) => report.healthStatus === activeFilter.value);
+        reports = reports.filter((report: any) => report.healthStatus === activeFilter.value);
       }
-      return reportList.value;
+
+      if (searchQuery.value) {
+        const searchLower = searchQuery.value.toLowerCase().trim();
+        reports = reports.filter((report: any) => {
+          const fullName = report.name?.toLowerCase().trim() || '';
+          const callSign = report.nickname?.toLowerCase().trim() || '';
+          return fullName.startsWith(searchLower) || callSign.startsWith(searchLower);
+        });
+      }
+
+      return reports;
     });
 
     onMounted(async () => {
@@ -119,12 +131,12 @@ export default defineComponent({
       activeFilter,
       filteredReports,
       searchQuery,
-      onSearchInput,
-      searchedStaff,
-      toStaffCard,
-      isFocused,
-      onFocus,
-      onBlur
+      // onSearchInput,
+      // searchedStaff,
+      // toStaffCard,
+      // isFocused,
+      // onFocus,
+      // onBlur
     };
   },
 });
@@ -146,7 +158,7 @@ export default defineComponent({
   min-height: 50px !important;
 }
 :deep .searchbar-input {
-  padding-top: 6px !important;
+  padding-top: 7px !important;
   padding-left: calc(50% - 90px) !important;
 }
 :deep .searchbar-has-focus,
@@ -161,14 +173,14 @@ export default defineComponent({
 :deep .searchbar-clear-button {
   right: 6px !important;
 }
-.autocomplete-tooltip {
-  position: absolute;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  z-index: 1000;
-  width: calc(100% - 32px);
-  margin: 0 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+// .autocomplete-tooltip {
+//   position: absolute;
+//   background: white;
+//   border: 1px solid #ddd;
+//   border-radius: 8px;
+//   z-index: 1000;
+//   width: calc(100% - 32px);
+//   margin: 0 16px;
+//   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+// }
 </style>

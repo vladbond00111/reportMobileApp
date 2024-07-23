@@ -3,11 +3,14 @@
     <ion-card-header>
       <ion-card-title>{{ staff.nickname }}</ion-card-title>
       <ion-card-subtitle>{{ staff.name }}</ion-card-subtitle>
+      <ion-card-subtitle class="unit-titles">
+        <ion-label v-if="staff.unit">{{ staff.unit }}, </ion-label>
+        <ion-label v-if="staff.unit2">{{ staff.unit2 }}, </ion-label>
+        <ion-label v-if="staff.unit3">{{ staff.unit3 }}, </ion-label>
+        <ion-label v-if="staff.unit4">{{ staff.unit4 }}, </ion-label>
+        <ion-label v-if="staff.unit5">{{ staff.unit5 }}</ion-label>
+      </ion-card-subtitle>
     </ion-card-header>
-
-    <ion-card-content>
-      {{ staff.unit }}
-    </ion-card-content>
   </ion-card>
 </template>
 
@@ -39,5 +42,8 @@ export default defineComponent({
 .card {
   margin-bottom: 16px;
   cursor: pointer;
+}
+.unit-titles {
+  color: var(--ion-color-primary);
 }
 </style>
