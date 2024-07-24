@@ -38,6 +38,10 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/ReportEdit.vue'),
       },
       {
+        path: 'staff',
+        component: () => import('@/views/StaffPage.vue'),
+      },
+      {
         path: 'staff/:id',
         component: () => import('@/views/StaffCardPage.vue'),
       }
