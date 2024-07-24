@@ -1,7 +1,7 @@
 <template>
   <ion-page style="margin-top: 56px">
     <ion-content v-if="report" class="ion-padding-end">
-      <ion-list>
+      <ion-list class="items-list">
         <ion-item>
           <ion-label position="stacked" class="item-label">1. Стан</ion-label>
           <ion-text class="item-text">{{ report.healthStatus }}</ion-text>
@@ -93,33 +93,33 @@
         </ion-item>
 
       </ion-list>
+      <div class="buttons-block" slot="fixed">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button
+                  color="light"
+                  shape="round"
+                  style="width: 100%"
+                  @click="toReportEdit(report.id)"
+              >
+                Редагувати
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button
+                  color="primary"
+                  shape="round"
+                  style="width: 100%"
+                  @click="copy(report)"
+              >
+                Копіювати
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
     </ion-content>
-    <div class="buttons-block">
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-button
-                color="light"
-                shape="round"
-                style="width: 100%"
-                @click="toReportEdit(report.id)"
-            >
-              Редагувати
-            </ion-button>
-          </ion-col>
-          <ion-col>
-            <ion-button
-                color="primary"
-                shape="round"
-                style="width: 100%"
-                @click="copy(report)"
-            >
-              Копіювати
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </div>
     <ion-toast
         :is-open="isOpenAlert"
         position="top"
@@ -208,8 +208,11 @@ export default defineComponent({
 <style scoped lang="scss">
 .buttons-block {
   display: flex;
+  width: 100%;
   justify-content: center;
-  padding: 0 10px 0 10px;
+  padding: 0 10px;
+  background-color: #fff;
+  bottom: -1px;
   border-top: #dddddd 1px solid;
 }
 .item-label {
@@ -219,5 +222,8 @@ export default defineComponent({
   color: black;
   margin-bottom: 10px;
   margin-top: 10px;
+}
+.items-list {
+  margin-bottom: 78.4px;
 }
 </style>

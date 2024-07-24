@@ -22,9 +22,12 @@
             label-placement="floating"
             fill="outline"
             mode="md"
+            :debounce="500"
+            @ionFocus="onFocus"
+            @ionBlur="onBlur"
             @ionInput="onNameChange(form.nickname, 'nickname')"
         />
-        <div v-if="searchedStaffByNickame.length" class="autocomplete-tooltip">
+        <div v-if="isFocused && searchedStaffByNickame.length" class="autocomplete-tooltip">
           <ion-list>
             <ion-item
                 v-for="staff in searchedStaffByNickame"
@@ -184,25 +187,25 @@
     />
     <ion-textarea
         v-model="form.evacuatedBy"
-        class="ion-margin-bottom"
+        class="last-input"
         label="Ким евакуйований"
         label-placement="floating"
         :auto-grow="true"
         fill="outline"
         mode="md"
     />
-  </ion-content>
-  <div class="buttons-block">
-    <ion-button
+    <div class="buttons-block" slot="fixed">
+      <ion-button
         expand="block"
         color="primary"
         shape="round"
         style="width: 100%"
         @click="saveReport"
-    >
+      >
       Зберегти
-    </ion-button>
-  </div>
+      </ion-button>
+    </div>
+  </ion-content>
 </template>
 
 <script lang="js">
@@ -210,8 +213,6 @@ import { defineComponent, ref, watch } from 'vue';
 import { IonSegment, IonSegmentButton } from '@ionic/vue';
 import { useRouter } from 'vue-router';
 import { postToReports, updateByIdInReports, searchInStaffTable } from '@/compasables/useDatabase.js';
-// import vueDebounce from 'vue-debounce';
-import { debounce } from 'vue-debounce';
 import NewStaffModal from "@/components/newStaff/newStaffModal.vue";
 export default defineComponent({
   props: {
@@ -231,6 +232,7 @@ export default defineComponent({
   },
   setup(props) {
     const router = useRouter();
+    const isFocused = ref(false);
     const form = ref({
       date: '',
       name: '',
@@ -273,7 +275,7 @@ export default defineComponent({
       form.value.birthday = data.birthday;
     };
     // const isDebounce = ref(false);
-    const onNameChange = debounce(async (value) => {
+    const onNameChange = async (value) => {
       if (value?.length > 2) {
         searchedStaffByNickame.value = await searchInStaffTable(value);
         clearTimeout(searchTimeout);
@@ -291,7 +293,18 @@ export default defineComponent({
         showNewStaffModal.value = false;
         searchedStaffByNickame.value = [];
       }
-    }, '500ms');
+    };
+
+    const onFocus = () => {
+      isFocused.value = true;
+    };
+
+    const onBlur = () => {
+      setTimeout(() => {
+        isFocused.value = false;
+      }, 150);
+    };
+
     const selectStaff = (staff) => {
       setStaffData(staff);
       // searchedStaffByName.value = [];
@@ -325,7 +338,10 @@ export default defineComponent({
       showNewStaffModal,
       selectStaff,
       setStaffData,
-      saveReport
+      saveReport,
+      isFocused,
+      onFocus,
+      onBlur,
     };
   },
 });
@@ -351,10 +367,12 @@ export default defineComponent({
 .buttons-block {
   display: flex;
   justify-content: end;
-  padding: 10px 10px 0 10px;
-  margin-bottom: 10px;
-  margin-right: 10px;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 0px;
   border-top: #dddddd 1px solid;
+  background-color: #fff;
+  bottom: 0;
 }
 .input-wrapper {
   position: relative;
@@ -365,11 +383,15 @@ export default defineComponent({
   z-index: 1000;
   background: white;
   border: 1px solid #dcdcdc;
+  border-radius: 8px;
   width: 100%;
   max-height: 200px;
   overflow-y: auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: -10px; /* Adjust this value to fine-tune the position */
+  margin-top: -15px; /* Adjust this value to fine-tune the position */
+}
+.last-input {
+  margin-bottom: 78.4px;
 }
 :deep {
   .label-text {
