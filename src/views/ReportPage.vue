@@ -153,7 +153,7 @@ export default defineComponent({
     });
 
     const ionRouter = useIonRouter();
-    const toReportEdit = (id) => {
+    const toReportEdit = (id: number | string) => {
       ionRouter.push(`/tabs/report/${id}/edit`);
     };
 
@@ -162,7 +162,7 @@ export default defineComponent({
       isOpenAlert.value = state;
     };
 
-    const copy = async (reportData) => {
+    const copy = async (reportData: any) => {
       const formattedText = `
 1. Стан - ${reportData.healthStatus}
 2. Дата та час події - ${reportData.date}

@@ -51,7 +51,7 @@ export default defineComponent({
   components: { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet },
   setup() {
     const ionRouter = useIonRouter();
-    const onGoTo = (link) => {
+    const onGoTo = (link: string) => {
       ionRouter.push(link);
     }
     const goBack = () => {
