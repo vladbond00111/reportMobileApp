@@ -1,0 +1,21 @@
+{
+  "name": "Form100",
+  "short_name": "Form100",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3f51b5",
+  "description": "My Progressive Web App",
+  "icons": [
+    {
+      "src": "/src/assets/logo1.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/src/assets/medicred.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
